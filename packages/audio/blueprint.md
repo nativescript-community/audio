@@ -14,14 +14,6 @@ Run the following command from the root of your project:
 
 `ns plugin add {{ pkg.name }}`
 
----
-## Table of Contents
-1. [Installation](#installation)
-2. [Permissions](#permissions)
-3. [Usage](#usage)
-4. [API](#api)
-5. [Demos and Development](#demos-and-development)
-
 ## Installation
 
 ```
