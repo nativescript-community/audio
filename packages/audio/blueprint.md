@@ -1,14 +1,18 @@
-# NativeScript Drawer
+{{ load:../../tools/readme/edit-warning.md }}
+{{ template:title }}
+{{ template:badges }}
+{{ template:description }}
 
-NativeScript plugin that allows you to easily add a side drawer (side menu) to your projects. This can be used as an Open Source alternative to [RadSideDrawer](https://docs.nativescript.org/ui/components/sidedrawer/overview).
-
-[![npm](https://img.shields.io/npm/v/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dm/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dt/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-
-| <img src="images/demo-ios.gif" height="500" /> | <img src="images/demo-android.gif" height="500" /> |
+| <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-android.gif" height="500" /> |
 | --- | ----------- |
 | iOS Demo | Android Demo |
+
+{{ template:toc }}
+
+## Installation
+Run the following command from the root of your project:
+
+`ns plugin add {{ pkg.name }}`
 
 ---
 ## Table of Contents
@@ -204,31 +208,5 @@ player
 
 [MIT](/LICENSE)
 
-## Demos and Development
-
-To run the demos, you must clone this repo **recursively**.
-
-```
-git clone https://github.com/farfromrefug/nativescript-audio.git --recursive
-```
-
-### Install Dependencies:
-```bash
-npm i # or 'yarn install' or 'pnpm install'
-```
-
-### Interactive Menu:
-To start the interactive menu, run `npm start` (or `yarn start` or `pnpm start`). This will list all of the commonly used scripts.
-
-### Building Plugin:
-```bash
-npm run build
-```
-
-### Running Demos:
-```bash
-npm run demo.[vue].[ios|android]
-
-# Example:
-npm run demo.svelte.ios
-```
+{{ load:../../tools/readme/demos-and-development.md }}
+{{ load:../../tools/readme/questions.md }}

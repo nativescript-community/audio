@@ -1,22 +1,92 @@
-# NativeScript Drawer
+<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      DO NOT EDIT THIS READEME DIRECTLY! Edit "bluesprint.md" instead.
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<h1 align="center">@akylas/nativescript-audio</h1>
+<p align="center">
+		<a href="https://npmcharts.com/compare/@akylas/nativescript-audio?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@akylas/nativescript-audio.svg" height="20"/></a>
+<a href="https://www.npmjs.com/package/@akylas/nativescript-audio"><img alt="NPM Version" src="https://img.shields.io/npm/v/@akylas/nativescript-audio.svg" height="20"/></a>
+	</p>
 
-NativeScript plugin that allows you to easily add a side drawer (side menu) to your projects. This can be used as an Open Source alternative to [RadSideDrawer](https://docs.nativescript.org/ui/components/sidedrawer/overview).
+<p align="center">
+  <b>NativeScript plugin to record and play audio.</b></br>
+  <sub><sub>
+</p>
 
-[![npm](https://img.shields.io/npm/v/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dm/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dt/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
+<br />
 
-| <img src="images/demo-ios.gif" height="500" /> | <img src="images/demo-android.gif" height="500" /> |
+
+| <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-android.gif" height="500" /> |
 | --- | ----------- |
 | iOS Demo | Android Demo |
 
+
+[](#table-of-contents)
+
+## Table of Contents
+
+* [Installation](#installation)
+* [Table of Contents](#table-of-contents)
+* [Installation](#installation-1)
+	* [Android Native Classes](#android-native-classes)
+	* [iOS Native Classes](#ios-native-classes)
+	* [Permissions](#permissions)
+		* [iOS](#ios)
+		* [Android](#android)
+* [Usage](#usage)
+	* [TypeScript Example](#typescript-example)
+	* [Javascript Example:](#javascript-example)
+* [API](#api)
+	* [Recorder](#recorder)
+		* [TNSRecorder Methods](#tnsrecorder-methods)
+		* [TNSRecorder Instance Properties](#tnsrecorder-instance-properties)
+	* [Player](#player)
+		* [TNSPlayer Methods](#tnsplayer-methods)
+		* [TNSPlayer Instance Properties](#tnsplayer-instance-properties)
+	* [License](#license)
+* [Demos and Development](#demos-and-development)
+	* [Setup](#setup)
+	* [Build](#build)
+	* [Demos](#demos)
+* [Questions](#questions)
+
+
+[](#installation)
+
+## Installation
+Run the following command from the root of your project:
+
+`ns plugin add @akylas/nativescript-audio`
+
 ---
+
+[](#table-of-contents)
+
 ## Table of Contents
 1. [Installation](#installation)
 2. [Permissions](#permissions)
 3. [Usage](#usage)
 4. [API](#api)
 5. [Demos and Development](#demos-and-development)
+
+
+[](#installation)
 
 ## Installation
 
@@ -55,6 +125,9 @@ If you are going to use the recorder capability for Android, you need to add the
 ```xml
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 ```
+
+
+[](#usage)
 
 ## Usage
 
@@ -144,6 +217,9 @@ player
   });
 ```
 
+
+[](#api)
+
 ## API
 
 ### Recorder
@@ -204,31 +280,47 @@ player
 
 [MIT](/LICENSE)
 
+
+[](#demos-and-development)
+
 ## Demos and Development
+
+
+### Setup
 
 To run the demos, you must clone this repo **recursively**.
 
 ```
-git clone https://github.com/farfromrefug/nativescript-audio.git --recursive
+git clone https://github.com/@akylas/nativescript-audio.git --recursive
 ```
 
-### Install Dependencies:
+**Install Dependencies:**
 ```bash
 npm i # or 'yarn install' or 'pnpm install'
 ```
 
-### Interactive Menu:
+**Interactive Menu:**
+
 To start the interactive menu, run `npm start` (or `yarn start` or `pnpm start`). This will list all of the commonly used scripts.
 
-### Building Plugin:
+### Build
+
 ```bash
 npm run build
+
+npm run build.angular # or for Angular
 ```
 
-### Running Demos:
+### Demos
+
 ```bash
-npm run demo.[vue].[ios|android]
+npm run demo.[ng|react|svelte|vue].[ios|android]
 
-# Example:
-npm run demo.svelte.ios
+npm run demo.svelte.ios # Example
 ```
+
+[](#questions)
+
+## Questions
+
+If you have any questions/issues/comments please feel free to create an issue or start a conversation in the [NativeScript Community Discord](https://nativescript.org/discord).

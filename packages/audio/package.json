@@ -1,0 +1,95 @@
+{
+    "name": "@akylas/nativescript-audio",
+    "version": "6.2.6",
+    "description": "NativeScript plugin to record and play audio.",
+    "main": "./index",
+    "sideEffects": false,
+    "typings": "./index.d.ts",
+    "scripts": {
+        "build": "npm run tsc && npm run readme",
+        "build.all": "npm run build",
+        "build.angular": "../../node_modules/.bin/ng-packagr -p ../../src/audio/angular/package.json -c ../../src/audio/angular/tsconfig.json",
+        "readme": "../../node_modules/.bin/readme generate -c ../../tools/readme/blueprint.json",
+        "tsc": "../../node_modules/.bin/cpy '**/*.d.ts' '../../packages/audio' --parents --cwd=../../src/audio && ../../node_modules/.bin/tsc -skipLibCheck -d",
+        "clean": "../../node_modules/.bin/rimraf ./*.d.ts ./*.js ./*.js.map"
+    },
+    "nativescript": {
+        "platforms": {
+            "android": "6.0.0",
+            "ios": "6.0.0"
+        }
+    },
+    "keywords": [
+        "NativeScript",
+        "JavaScript",
+        "Android",
+        "iOS",
+        "music",
+        "microphone",
+        "recorder",
+        "audio",
+        "nativescript-community",
+        "Angular",
+        "Vue",
+        "Svelte",
+        "React",
+        "preview|https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-ios.gif|iOS Demo",
+        "preview|https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-android.gif|Android Demo"
+    ],
+    "author": {
+        "name": "Brad Martin",
+        "url": "https://github.com/bradmartin",
+        "email": "bmartin@nstudio.io"
+    },
+    "contributors": [
+        {
+            "name": "Nathan Walker",
+            "email": "walkerrunpdx@gmail.com",
+            "url": "https://github.com/NathanWalker"
+        },
+        {
+            "name": "Jibon Lawrence Costa",
+            "url": "https://github.com/jibon57"
+        },
+        {
+            "name": "Dylan Ryan",
+            "url": "https://github.com/dylanryan"
+        },
+        {
+            "name": "Alexander Vakrilov",
+            "url": "https://github.com/vakrilov"
+        },
+        {
+            "name": "GT Nunes",
+            "url": "https://github.com/gtnunes1956"
+        },
+        {
+            "name": "Andrea Sotto",
+            "url": "https://github.com/andreasotto"
+        },
+        {
+            "name": "August Heegaard",
+            "url": "https://github.com/agisboye"
+        },
+        {
+            "name": "Akmal Sultonov",
+            "url": "https://github.com/asultonov"
+        },
+        {
+            "name": "Martin Guillon",
+            "email": "martin@akylas.fr"
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/farfromrefug/nativescript-audio/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/farfromrefug/nativescript-audio"
+    },
+    "license": "Apache-2.0",
+    "readmeFilename": "README.md",
+    "dependencies": {
+        "@nativescript-community/perms": "^2.2.2"
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "./tools/tsconfig",
+  "compilerOptions": {
+    "paths": {
+      "@akylas/nativescript-audio": ["src/audio"],
+      "@akylas/nativescript-audio/*": ["src/audio/*"]
+    }
+  }
+}
