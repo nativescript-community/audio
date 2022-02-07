@@ -103,12 +103,12 @@ export class TNSPlayer extends Observable {
                 audioSession.setCategoryModeRouteSharingPolicyOptionsError(
                     options.sessionCategory || AVAudioSessionCategoryAmbient,
                     options.sessionMode || AVAudioSessionModeDefault,
-                    options.sessionRouteSharingPolicy || AVAudioSessionRouteSharingPolicy.LongFormAudio,
-                    options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers
+                    options.sessionRouteSharingPolicy || AVAudioSessionRouteSharingPolicy.LongForm,
+                    options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+                    //@ts-ignore
+                    null
                 );
-
                 const output = audioSession.currentRoute.outputs.lastObject.portType;
-
                 if (output.match(/Receiver/)) {
                     try {
                         audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
@@ -185,11 +185,14 @@ export class TNSPlayer extends Observable {
                     this.infoCallback = options.infoCallback;
 
                     const audioSession = AVAudioSession.sharedInstance();
-                    if (options.audioMixing) {
-                        audioSession.setCategoryWithOptionsError(AVAudioSessionCategoryAmbient, AVAudioSessionCategoryOptions.MixWithOthers);
-                    } else {
-                        audioSession.setCategoryWithOptionsError(AVAudioSessionCategoryAmbient, AVAudioSessionCategoryOptions.DuckOthers);
-                    }
+                    audioSession.setCategoryModeRouteSharingPolicyOptionsError(
+                        options.sessionCategory || AVAudioSessionCategoryAmbient,
+                        options.sessionMode || AVAudioSessionModeDefault,
+                        options.sessionRouteSharingPolicy || AVAudioSessionRouteSharingPolicy.LongForm,
+                        options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+                        //@ts-ignore
+                        null
+                    );
                     const output = audioSession.currentRoute.outputs.lastObject.portType;
 
                     if (output.match(/Receiver/)) {
