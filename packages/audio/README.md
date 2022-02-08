@@ -42,7 +42,6 @@
 ## Table of Contents
 
 * [Installation](#installation)
-* [Table of Contents](#table-of-contents)
 * [Installation](#installation-1)
 	* [Android Native Classes](#android-native-classes)
 	* [iOS Native Classes](#ios-native-classes)
@@ -73,17 +72,6 @@
 Run the following command from the root of your project:
 
 `ns plugin add @akylas/nativescript-audio`
-
----
-
-[](#table-of-contents)
-
-## Table of Contents
-1. [Installation](#installation)
-2. [Permissions](#permissions)
-3. [Usage](#usage)
-4. [API](#api)
-5. [Demos and Development](#demos-and-development)
 
 
 [](#installation)
