@@ -82,42 +82,61 @@ export class TNSPlayer extends Observable {
         return this.playFromFile(options);
     }
 
+    private prepareAudioSession(options: AudioPlayerOptions) {
+        this.completeCallback = options.completeCallback;
+        this.errorCallback = options.errorCallback;
+        this.infoCallback = options.infoCallback;
+
+        const audioSession = AVAudioSession.sharedInstance();
+        audioSession.setCategoryModeRouteSharingPolicyOptionsError(
+            options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryAmbient,
+            options.sessionMode !== undefined ? options.sessionMode : AVAudioSessionModeDefault,
+            options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
+            options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+            //@ts-ignore
+            null
+        );
+        const output = audioSession.currentRoute.outputs.lastObject.portType;
+        if (output.match(/Receiver/)) {
+            try {
+                audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
+                audioSession.overrideOutputAudioPortError(AVAudioSessionPortOverride.Speaker);
+                audioSession.setActiveError(true);
+            } catch (err) {
+                console.error('setting audioSession catergory failed', err);
+            }
+        }
+    }
+    private handleStartPlayer(options: AudioPlayerOptions) {
+        if (this.delegate === undefined) {
+            this.delegate = TNSPlayerDelegate.initWithOwner(this);
+        }
+        this._player.delegate = this.delegate;
+        // enableRate to change playback speed
+        this._player.enableRate = true;
+
+        if (options.metering) {
+            this._player.meteringEnabled = true;
+        }
+
+        if (options.loop) {
+            this._player.numberOfLoops = -1;
+        }
+
+        if (options.autoPlay !== false) {
+            this._player.play();
+        }
+    }
+
     public playFromFile(options: AudioPlayerOptions): Promise<any> {
         return new Promise((resolve, reject) => {
-            // only if not explicitly set, default to true
-            if (options.autoPlay !== false) {
-                options.autoPlay = true;
-            }
-
             try {
                 let fileName = Utils.isString(options.audioFile) ? options.audioFile.trim() : '';
                 if (fileName.indexOf('~/') === 0) {
                     fileName = nsFilePath.join(knownFolders.currentApp().path, fileName.replace('~/', ''));
                 }
 
-                this.completeCallback = options.completeCallback;
-                this.errorCallback = options.errorCallback;
-                this.infoCallback = options.infoCallback;
-
-                const audioSession = AVAudioSession.sharedInstance();
-                audioSession.setCategoryModeRouteSharingPolicyOptionsError(
-                    options.sessionCategory || AVAudioSessionCategoryAmbient,
-                    options.sessionMode || AVAudioSessionModeDefault,
-                    options.sessionRouteSharingPolicy || AVAudioSessionRouteSharingPolicy.LongForm,
-                    options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
-                    //@ts-ignore
-                    null
-                );
-                const output = audioSession.currentRoute.outputs.lastObject.portType;
-                if (output.match(/Receiver/)) {
-                    try {
-                        audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
-                        audioSession.overrideOutputAudioPortError(AVAudioSessionPortOverride.Speaker);
-                        audioSession.setActiveError(true);
-                    } catch (err) {
-                        console.error('setting audioSession catergory failed', err);
-                    }
-                }
+                this.prepareAudioSession(options);
 
                 const errorRef = new interop.Reference();
                 this._player = AVAudioPlayer.alloc().initWithContentsOfURLError(NSURL.fileURLWithPath(fileName), errorRef);
@@ -125,24 +144,7 @@ export class TNSPlayer extends Observable {
                     reject(errorRef.value);
                     return;
                 } else if (this._player) {
-                    if (this.delegate === undefined) {
-                        this.delegate = TNSPlayerDelegate.initWithOwner(this);
-                    }
-                    this._player.delegate = this.delegate;
-                    // enableRate to change playback speed
-                    this._player.enableRate = true;
-
-                    if (options.metering) {
-                        this._player.meteringEnabled = true;
-                    }
-
-                    if (options.loop) {
-                        this._player.numberOfLoops = -1;
-                    }
-
-                    if (options.autoPlay) {
-                        this._player.play();
-                    }
+                    this.handleStartPlayer(options);
 
                     resolve(null);
                 } else {
@@ -165,66 +167,23 @@ export class TNSPlayer extends Observable {
 
     public playFromUrl(options: AudioPlayerOptions): Promise<any> {
         return new Promise((resolve, reject) => {
-            // only if not explicitly set, default to true
-            if (options.autoPlay !== false) {
-                options.autoPlay = true;
-            }
-
             try {
                 this._task = NSURLSession.sharedSession.dataTaskWithURLCompletionHandler(NSURL.URLWithString(options.audioFile), (data, response, error) => {
                     if (error !== null) {
                         if (this.errorCallback) {
                             this.errorCallback({ error });
                         }
-
-                        reject();
+                        reject(error);
                     }
 
-                    this.completeCallback = options.completeCallback;
-                    this.errorCallback = options.errorCallback;
-                    this.infoCallback = options.infoCallback;
-
-                    const audioSession = AVAudioSession.sharedInstance();
-                    audioSession.setCategoryModeRouteSharingPolicyOptionsError(
-                        options.sessionCategory || AVAudioSessionCategoryAmbient,
-                        options.sessionMode || AVAudioSessionModeDefault,
-                        options.sessionRouteSharingPolicy || AVAudioSessionRouteSharingPolicy.LongForm,
-                        options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
-                        //@ts-ignore
-                        null
-                    );
-                    const output = audioSession.currentRoute.outputs.lastObject.portType;
-
-                    if (output.match(/Receiver/)) {
-                        try {
-                            audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
-                            audioSession.overrideOutputAudioPortError(AVAudioSessionPortOverride.Speaker);
-                            audioSession.setActiveError(true);
-                        } catch (err) {
-                            console.error('Setting audioSession category failed.', err);
-                        }
-                    }
+                    this.prepareAudioSession(options);
 
                     const errorRef = new interop.Reference();
                     this._player = AVAudioPlayer.alloc().initWithDataError(data, errorRef);
                     if (errorRef && errorRef.value) {
-                        reject(errorRef.value);
-                        return;
+                        return reject(errorRef.value);
                     } else if (this._player) {
-                        this._player.delegate = TNSPlayerDelegate.initWithOwner(this);
-
-                        // enableRate to change playback speed
-                        this._player.enableRate = true;
-
-                        this._player.numberOfLoops = options.loop ? -1 : 0;
-
-                        if (options.metering) {
-                            this._player.meteringEnabled = true;
-                        }
-
-                        if (options.autoPlay) {
-                            this._player.play();
-                        }
+                        this.handleStartPlayer(options);
 
                         resolve(null);
                     } else {
