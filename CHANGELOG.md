@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.11](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.10...v6.2.11) (2022-05-06)
+
+**Note:** Version bump only for package @akylas/nativescript-audio
+
+
+
+
+
 ## [6.2.10](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.9...v6.2.10) (2022-05-06)
 
 
