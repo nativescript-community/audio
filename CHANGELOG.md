@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.10](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.9...v6.2.10) (2022-05-06)
+
+
+### Bug Fixes
+
+* android native api-usage ([cd84c7f](https://github.com/farfromrefug/nativescript-audio/commit/cd84c7f4d6b2f1d72de730b712611c50b293d311))
+* event fixes ([5103f5f](https://github.com/farfromrefug/nativescript-audio/commit/5103f5f9ed59306ba0aab78b79f0764c87cfdc54))
+
+
+
+
+
 ## [6.2.9](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.8...v6.2.9) (2022-02-08)
 
 
