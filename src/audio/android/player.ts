@@ -154,15 +154,15 @@ function getGlobalMixingManager(): AudioFocusManager {
     return globalMixingManager;
 }
 
-export class TNSPlayer {
+export class TNSPlayer extends Observable {
     private _mediaPlayer: android.media.MediaPlayer;
     private _lastPlayerVolume; // ref to the last volume setting so we can reset after ducking
     private _wasPlaying = false;
-    private _events: Observable;
     private _options: AudioPlayerOptions;
     private _audioFocusManager: AudioFocusManager | null;
 
     constructor(durationHint: AudioFocusDurationHint | AudioFocusManager = AudioFocusDurationHint.AUDIOFOCUS_GAIN) {
+        super();
         if (!(durationHint instanceof AudioFocusManager)) {
             this.setAudioFocusManager(
                 new AudioFocusManager({
@@ -172,13 +172,6 @@ export class TNSPlayer {
         } else {
             this.setAudioFocusManager(durationHint);
         }
-    }
-
-    public get events() {
-        if (!this._events) {
-            this._events = new Observable();
-        }
-        return this._events;
     }
 
     get android(): any {
@@ -238,22 +231,22 @@ export class TNSPlayer {
                 if (options.autoPlay !== false) {
                     options.autoPlay = true;
                 }
-
+                const player = this._player;
                 const audioPath = resolveAudioFilePath(options.audioFile);
-                this._player.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC);
-                this._player.reset();
-                this._player.setDataSource(audioPath);
+                player.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC);
+                player.reset();
+                player.setDataSource(audioPath);
 
                 // check if local file or remote - local then `prepare` is okay https://developer.android.com/reference/android/media/MediaPlayer.html#prepare()
                 if (Utils.isFileOrResourcePath(audioPath)) {
-                    this._player.prepare();
+                    player.prepare();
                 } else {
-                    this._player.prepareAsync();
+                    player.prepareAsync();
                 }
 
                 // On Info
                 if (options.infoCallback) {
-                    this._player.setOnInfoListener(
+                    player.setOnInfoListener(
                         new android.media.MediaPlayer.OnInfoListener({
                             onInfo: (player: any, info: number, extra: number) => {
                                 options.infoCallback({ player, info, extra });
@@ -264,13 +257,17 @@ export class TNSPlayer {
                 }
 
                 // On Prepared
-                this._player.setOnPreparedListener(
+                player.setOnPreparedListener(
                     new android.media.MediaPlayer.OnPreparedListener({
                         onPrepared: (mp) => {
-                            if (options.autoPlay) {
-                                this.play();
+                            try {
+                                if (options.autoPlay) {
+                                    this.play();
+                                }
+                                resolve(null);
+                            } catch (error) {
+                                reject(error);
                             }
-                            resolve(null);
                         }
                     })
                 );
@@ -300,12 +297,13 @@ export class TNSPlayer {
             // We abandon the audio focus but we still preserve
             // the MediaPlayer so we can resume it in the future
             this._abandonAudioFocus(true);
-            this._sendEvent(AudioPlayerEvents.paused);
+            this.notify({ eventName: AudioPlayerEvents.paused });
         }
     }
 
     public async play() {
-        if (this._player && !this._player.isPlaying()) {
+        const player = this._player;
+        if (player && !player.isPlaying()) {
             // request audio focus, this will setup the onAudioFocusChangeListener
             if (this._options.audioMixing) {
                 // we're mixing audio, so we use a global mixing manager
@@ -318,10 +316,11 @@ export class TNSPlayer {
                 throw new Error('Could not request audio focus');
             }
 
-            this._sendEvent(AudioPlayerEvents.started);
+            this.notify({ eventName: AudioPlayerEvents.started });
+            const activity = Application.android.foregroundActivity || Application.android.startActivity;
             // set volume controls
             // https://developer.android.com/reference/android/app/Activity.html#setVolumeControlStream(int)
-            Application.android.foregroundActivity.setVolumeControlStream(android.media.AudioManager.STREAM_MUSIC);
+            activity.setVolumeControlStream(android.media.AudioManager.STREAM_MUSIC);
 
             // register the receiver so when calls or another app takes main audio focus the player pauses
             Application.android.registerBroadcastReceiver(android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY, (context: android.content.Context, intent: android.content.Intent) => {
@@ -334,7 +333,7 @@ export class TNSPlayer {
                 this._player.setPlaybackParams(playBackParams);
             }
 
-            this._player.start();
+            player.start();
         }
     }
 
@@ -342,7 +341,7 @@ export class TNSPlayer {
         if (this._player) {
             // We call play so it can request audio focus
             this.play();
-            this._sendEvent(AudioPlayerEvents.started);
+            this.notify({ eventName: AudioPlayerEvents.started });
         }
     }
 
@@ -350,7 +349,7 @@ export class TNSPlayer {
         if (this._player) {
             time = time * 1000;
             this._player.seekTo(time);
-            this._sendEvent(AudioPlayerEvents.seek);
+            this.notify({ eventName: AudioPlayerEvents.seek });
         }
     }
 
@@ -394,18 +393,6 @@ export class TNSPlayer {
     public async getAudioTrackDuration() {
         const duration = this._player ? this._player.getDuration() : 0;
         return duration.toString();
-    }
-
-    /**
-     * Notify events by name and optionally pass data
-     */
-    private _sendEvent(eventName: string, data?: any) {
-        if (this.events) {
-            this.events.notify({
-                eventName,
-                data
-            });
-        }
     }
 
     /**

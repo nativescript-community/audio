@@ -1,5 +1,10 @@
 import { Utils, knownFolders, path as nsFilePath } from '@nativescript/core';
 
+export enum IAudioPlayerEvents {
+    seek = 'seek',
+    paused = 'paused',
+    started = 'started'
+}
 /**
  * Helper function to determine if string is a url.
  * @param value [string]
