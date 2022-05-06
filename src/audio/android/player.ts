@@ -1,6 +1,6 @@
 import { Application, EventData, Observable, Utils } from '@nativescript/core';
-import { resolveAudioFilePath } from '../common';
-import { AudioPlayerEvents, AudioPlayerOptions } from '..';
+import { AudioPlayerEvents, resolveAudioFilePath } from '../common';
+import { AudioPlayerOptions } from '..';
 
 export enum AudioFocusDurationHint {
     AUDIOFOCUS_GAIN = android.media.AudioManager.AUDIOFOCUS_GAIN,

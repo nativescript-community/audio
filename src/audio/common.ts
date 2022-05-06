@@ -1,6 +1,6 @@
 import { Utils, knownFolders, path as nsFilePath } from '@nativescript/core';
 
-export enum IAudioPlayerEvents {
+export enum AudioPlayerEvents {
     seek = 'seek',
     paused = 'paused',
     started = 'started'

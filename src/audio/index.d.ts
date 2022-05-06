@@ -1,6 +1,6 @@
 import { Observable } from '@nativescript/core';
 
-export { IAudioPlayerEvents } from './common';
+export { AudioPlayerEvents } from './common';
 export interface AudioPlayerOptions {
     /**
      * The audio file to play.
@@ -272,7 +272,6 @@ export declare class TNSRecorder {
     audioRecorderDidFinishRecording(recorder: any, success: boolean): void;
 }
 
-export const AudioPlayerEvents: IAudioPlayerEvents;
 
 export enum AudioFocusDurationHint {
     /**
