@@ -1,6 +1,6 @@
 {
     "name": "@akylas/nativescript-audio",
-    "version": "6.2.11",
+    "version": "6.3.0",
     "description": "NativeScript plugin to record and play audio.",
     "main": "./index",
     "sideEffects": false,

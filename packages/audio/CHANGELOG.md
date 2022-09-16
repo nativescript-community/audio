@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.11...v6.3.0) (2022-09-16)
+
+
+### Features
+
+* **android:** support for wav recording ([fdbf720](https://github.com/farfromrefug/nativescript-audio/commit/fdbf72075fe82f9705ace173042cc656eb097308))
+
+
+
+
+
 ## [6.2.11](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.10...v6.2.11) (2022-05-06)
 
 **Note:** Version bump only for package @akylas/nativescript-audio
