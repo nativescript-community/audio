@@ -279,7 +279,7 @@ export class TNSPlayer extends Observable {
     public async getAudioTrackDuration() {
         try {
             const duration = this._player ? this._player.duration : 0;
-            return duration.toString();
+            return duration;
         } catch (ex) {
             if (this.errorCallback) {
                 this.errorCallback({ ex });
