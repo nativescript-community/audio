@@ -1,5 +1,10 @@
 import { Utils, knownFolders, path as nsFilePath } from '@nativescript/core';
 
+
+export const ANDROID_ENCODER_PCM = 161234;
+export const ANDROID_ENCODER_PCM_16 = 1612341;
+
+
 export enum AudioPlayerEvents {
     seek = 'seek',
     paused = 'paused',

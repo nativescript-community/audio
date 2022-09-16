@@ -148,6 +148,9 @@ player
 
 ### Recorder
 
+On Android if you want to record PCM you need to use `ANDROID_ENCODER_PCM_16 | ` exported by this plugin for the `encoder` option
+While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on Android
+
 #### TNSRecorder Methods
 
 | Method                                                      | Description                                                              |

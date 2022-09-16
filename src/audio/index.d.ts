@@ -1,6 +1,6 @@
 import { Observable } from '@nativescript/core';
 
-export { AudioPlayerEvents } from './common';
+export { AudioPlayerEvents, ANDROID_ENCODER_PCM, ANDROID_ENCODER_PCM_16 } from './common';
 export interface AudioPlayerOptions {
     /**
      * The audio file to play.
@@ -21,7 +21,6 @@ export interface AudioPlayerOptions {
      * Set true to enable audio metering.
      */
     metering?: boolean;
-    audioMixing?: boolean;
 
     pitch?: number;
 
@@ -42,6 +41,11 @@ export interface AudioPlayerOptions {
      * @returns {Object} An object containing the native values for the info callback.
      */
     infoCallback?: Function;
+
+    /**
+     * Should mix audio.
+     */
+    audioMixing?: boolean;
 
     /**
      * iOS: The category for playing recorded music or other sounds that are central to the successful use of your app.
@@ -191,7 +195,7 @@ export declare class TNSPlayer {
     /**
      * Get the duration of the audio file playing.
      */
-    getAudioTrackDuration(): Promise<string>;
+    getAudioTrackDuration(): Promise<number>;
 
     /**
      * Android Only
@@ -271,7 +275,6 @@ export declare class TNSRecorder {
     isRecording(): any;
     audioRecorderDidFinishRecording(recorder: any, success: boolean): void;
 }
-
 
 export enum AudioFocusDurationHint {
     /**

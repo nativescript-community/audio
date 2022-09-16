@@ -248,7 +248,7 @@ export class TNSPlayer extends Observable {
                 if (options.infoCallback) {
                     player.setOnInfoListener(
                         new android.media.MediaPlayer.OnInfoListener({
-                            onInfo: (player: any, info: number, extra: number) => {
+                            onInfo: (player: android.media.MediaPlayer, info: number, extra: number) => {
                                 options.infoCallback({ player, info, extra });
                                 return true;
                             }
@@ -322,7 +322,7 @@ export class TNSPlayer extends Observable {
             // https://developer.android.com/reference/android/app/Activity.html#setVolumeControlStream(int)
             activity.setVolumeControlStream(android.media.AudioManager.STREAM_MUSIC);
 
-            // register the receiver so when calls or another app takes main audio focus the player pauses
+            // register the receiver so when calls or another app takes main   focus the player pauses
             Application.android.registerBroadcastReceiver(android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY, (context: android.content.Context, intent: android.content.Intent) => {
                 this.pause();
             });
@@ -392,7 +392,7 @@ export class TNSPlayer extends Observable {
 
     public async getAudioTrackDuration() {
         const duration = this._player ? this._player.getDuration() : 0;
-        return duration.toString();
+        return duration;
     }
 
     /**
