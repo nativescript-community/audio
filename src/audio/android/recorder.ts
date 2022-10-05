@@ -86,8 +86,8 @@ export class TNSRecorder {
             this._recorder.prepare();
             this._recorder.start();
         } else if (this._wavrecorder) {
-            this._wavrecorder.waveConfig.sampleRate = options.sampleRate || 44100;
-            this._wavrecorder.waveConfig.channels = options.channels === 1 ? android.media.AudioFormat.CHANNEL_IN_MONO : 2;
+            this._wavrecorder.waveConfig.sampleRate = options.sampleRate || 16000;
+            this._wavrecorder.waveConfig.channels = options.channels === 1 ? android.media.AudioFormat.CHANNEL_IN_MONO : android.media.AudioFormat.CHANNEL_IN_STEREO;
             this._wavrecorder.waveConfig.audioEncoding = options.encoder === ANDROID_ENCODER_PCM_16 ? android.media.AudioFormat.ENCODING_PCM_16BIT : android.media.AudioFormat.ENCODING_PCM_8BIT;
             this._wavrecorder.startRecording();
         }
