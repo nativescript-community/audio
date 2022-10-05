@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.1](https://github.com/farfromrefug/nativescript-audio/compare/v6.3.0...v6.3.1) (2022-10-05)
+
+
+### Bug Fixes
+
+* **android:** default sampleRate fix ([deec1a0](https://github.com/farfromrefug/nativescript-audio/commit/deec1a0533660514728b629a77f0d9007d2c3251))
+
+
+
+
+
 # [6.3.0](https://github.com/farfromrefug/nativescript-audio/compare/v6.2.11...v6.3.0) (2022-09-16)
 
 
