@@ -36,7 +36,6 @@ export class TNSRecorder {
             this._recorder.reset();
         } else {
             if (options.encoder === ANDROID_ENCODER_PCM || options.encoder === ANDROID_ENCODER_PCM_16) {
-                console.log('WaveRecorder');
                 //@ts-ignore
                 this._wavrecorder = new com.github.squti.androidwaverecorder.WaveRecorder(options.filename);
             } else {
