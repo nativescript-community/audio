@@ -1,6 +1,4 @@
-# NativeScript Drawer
-
-NativeScript plugin that allows you to easily add a side drawer (side menu) to your projects. This can be used as an Open Source alternative to [RadSideDrawer](https://docs.nativescript.org/ui/components/sidedrawer/overview).
+# NativeScript Audio
 
 [![npm](https://img.shields.io/npm/v/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
 [![npm downloads](https://img.shields.io/npm/dm/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
@@ -166,6 +164,57 @@ While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on
 | _requestRecordPermission()_: `Promise<void>`                | _Android Only_ Resolves the promise is user grants the permission.       |
 | _hasRecordPermission()_: `boolean`                          | _Android Only_ Returns true if RECORD_AUDIO permission has been granted. |
 
+```ts
+interface AudioRecorderOptions {
+    /**
+     * The name of the file recorded.
+     */
+    filename: string;
+
+    /**
+     * The audio source to record *** ANDROID ONLY for now ***
+     * https://developer.android.com/reference/android/media/MediaRecorder.AudioSource.html
+     */
+    source?: any;
+
+    /**
+     * The max duration of the audio recording.
+     */
+    maxDuration?: number;
+
+    /**
+     * Set true to enable audio metering.
+     */
+    metering?: boolean;
+
+    /**
+     * The format of the audio recording.
+     */
+    format?: any;
+    channels?: any;
+    sampleRate?: any;
+    bitRate?: any;
+
+    /**
+     * Android: encoder format (android.media.MediaRecorder.AudioEncoder | ANDROID_ENCODER_PCM_16 | ANDROID_ENCODER_PCM_8)
+     * https://developer.android.com/reference/android/media/MediaRecorder.AudioEncoder
+     */
+    encoder?: any;
+
+    /**
+     * Callback to execute when playback has an error.
+     * @returns {Object} An object containing the native values for the error callback.
+     */
+    errorCallback?: Function;
+
+    /**
+     * Callback to execute when info is emitted from the player.
+     * @returns {Object} An object containing the native values for the info callback.
+     */
+    infoCallback?: Function;
+}
+```
+
 #### TNSRecorder Instance Properties
 
 | Property | Description                                                |
@@ -193,6 +242,72 @@ While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on
 | _playAtTime(time: number)_: void - **_iOS Only_**                      | Play audio track at specific time of duration.               |
 | _changePlayerSpeed(speed: number)_: void - **On Android Only API 23+** | Change the playback speed of the media player.               |
 
+```ts
+interface AudioPlayerOptions {
+    /**
+     * The audio file to play.
+     */
+    audioFile: string;
+
+    /**
+     * Set true to loop audio playback.
+     */
+    loop: boolean;
+
+    /**
+     * Prevent autoplay if desired as player autoplays be default
+     */
+    autoPlay?: boolean;
+
+    /**
+     * Set true to enable audio metering.
+     */
+    metering?: boolean;
+
+    pitch?: number;
+
+    /**
+     * Callback to execute when playback has completed.
+     * @returns {Object} An object containing the native values for the callback.
+     */
+    completeCallback?: Function;
+
+    /**
+     * Callback to execute when playback has an error.
+     * @returns {Object} An object containing the native values for the error callback.
+     */
+    errorCallback?: Function;
+
+    /**
+     * Callback to execute when info is emitted from the player.
+     * @returns {Object} An object containing the native values for the info callback.
+     */
+    infoCallback?: Function;
+
+    /**
+     * Should mix audio.
+     */
+    audioMixing?: boolean;
+
+    /**
+     * iOS: The category for playing recorded music or other sounds that are central to the successful use of your app.
+     *  https://developer.apple.com/documentation/avfaudio/avaudiosessioncategory?language=objc
+     */
+    sessionCategory?: string;
+
+    /**
+     * iOS: Audio session mode identifiers.
+     * https://developer.apple.com/documentation/avfaudio/avaudiosessionmode
+     */
+    sessionMode?: string;
+
+    /**
+     * iOS: Cases that indicate the possible route-sharing policies for an audio session.
+     * https://developer.apple.com/documentation/avfaudio/avaudiosessionroutesharingpolicy
+     */
+    sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
+}
+```
 #### TNSPlayer Instance Properties
 
 | Property                | Description                                                |
