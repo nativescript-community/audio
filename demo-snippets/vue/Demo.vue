@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { AudioPlayerOptions, AudioRecorderOptions, TNSPlayer, TNSRecorder } from '@akylas/nativescript-audio';
+import { AudioPlayerOptions, AudioRecorderOptions, TNSPlayer, TNSRecorder } from '@nativescript-community/audio';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import Vue, { NativeScriptVue } from 'nativescript-vue';
 import { Application, Dialogs, File, Observable, Page, Slider, Utils, isAndroid, knownFolders } from '@nativescript/core';

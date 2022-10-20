@@ -2,9 +2,9 @@
 
 NativeScript plugin that allows you to easily add a side drawer (side menu) to your projects. This can be used as an Open Source alternative to [RadSideDrawer](https://docs.nativescript.org/ui/components/sidedrawer/overview).
 
-[![npm](https://img.shields.io/npm/v/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dm/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
-[![npm downloads](https://img.shields.io/npm/dt/@akylas/nativescript-audio.svg)](https://www.npmjs.com/package/@akylas/nativescript-audio)
+[![npm](https://img.shields.io/npm/v/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
+[![npm downloads](https://img.shields.io/npm/dm/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
+[![npm downloads](https://img.shields.io/npm/dt/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
 
 | <img src="images/demo-ios.gif" height="500" /> | <img src="images/demo-android.gif" height="500" /> |
 | --- | ----------- |
@@ -21,7 +21,7 @@ NativeScript plugin that allows you to easily add a side drawer (side menu) to y
 ## Installation
 
 ```
-ns plugin add @akylas/nativescript-audio
+ns plugin add @nativescript-community/audio
 ```
 
 ---
@@ -212,7 +212,7 @@ While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on
 To run the demos, you must clone this repo **recursively**.
 
 ```
-git clone https://github.com/farfromrefug/nativescript-audio.git --recursive
+git clone https://github.com/nativescript-community/audio.git --recursive
 ```
 
 ### Install Dependencies:

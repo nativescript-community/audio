@@ -3,7 +3,7 @@
 {{ template:badges }}
 {{ template:description }}
 
-| <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-android.gif" height="500" /> |
+| <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-android.gif" height="500" /> |
 | --- | ----------- |
 | iOS Demo | Android Demo |
 
@@ -17,7 +17,7 @@ Run the following command from the root of your project:
 ## Installation
 
 ```
-ns plugin add @akylas/nativescript-audio
+ns plugin add @nativescript-community/audio
 ```
 
 ---

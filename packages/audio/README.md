@@ -18,10 +18,10 @@
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<h1 align="center">@akylas/nativescript-audio</h1>
+<h1 align="center">@nativescript-community/audio</h1>
 <p align="center">
-		<a href="https://npmcharts.com/compare/@akylas/nativescript-audio?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@akylas/nativescript-audio.svg" height="20"/></a>
-<a href="https://www.npmjs.com/package/@akylas/nativescript-audio"><img alt="NPM Version" src="https://img.shields.io/npm/v/@akylas/nativescript-audio.svg" height="20"/></a>
+		<a href="https://npmcharts.com/compare/@nativescript-community/audio?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@nativescript-community/audio.svg" height="20"/></a>
+<a href="https://www.npmjs.com/package/@nativescript-community/audio"><img alt="NPM Version" src="https://img.shields.io/npm/v/@nativescript-community/audio.svg" height="20"/></a>
 	</p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 <br />
 
 
-| <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/farfromrefug/nativescript-audio/master/images/demo-android.gif" height="500" /> |
+| <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-android.gif" height="500" /> |
 | --- | ----------- |
 | iOS Demo | Android Demo |
 
@@ -71,7 +71,7 @@
 ## Installation
 Run the following command from the root of your project:
 
-`ns plugin add @akylas/nativescript-audio`
+`ns plugin add @nativescript-community/audio`
 
 
 [](#installation)
@@ -79,7 +79,7 @@ Run the following command from the root of your project:
 ## Installation
 
 ```
-ns plugin add @akylas/nativescript-audio
+ns plugin add @nativescript-community/audio
 ```
 
 ---
@@ -279,7 +279,7 @@ player
 To run the demos, you must clone this repo **recursively**.
 
 ```
-git clone https://github.com/@akylas/nativescript-audio.git --recursive
+git clone https://github.com/@nativescript-community/audio.git --recursive
 ```
 
 **Install Dependencies:**
