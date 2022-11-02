@@ -64,10 +64,10 @@ export class TNSRecorder extends Observable {
         return new Promise((resolve, reject) => {
             try {
                 this._recordingSession = AVAudioSession.sharedInstance();
-                let errorRef = new interop.Reference();
+                let errorRef = new interop.Reference<NSError>();
                 this._recordingSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord, errorRef);
-                if (errorRef) {
-                    console.error(`setCategoryError: ${errorRef.value}, ${errorRef}`);
+                if (errorRef && errorRef.value) {
+                    throw interop.NSErrorWrapper(errorRef.value);
                 }
 
                 this._recordingSession.setActiveError(true, null);
@@ -91,14 +91,12 @@ export class TNSRecorder extends Observable {
                         recordSetting.setValueForKey(NSNumber.numberWithFloat(16000.0), 'AVSampleRateKey');
                         recordSetting.setValueForKey(NSNumber.numberWithInt(1), 'AVNumberOfChannelsKey');
 
-                        errorRef = new interop.Reference();
-
                         const url = NSURL.fileURLWithPath(options.filename);
 
                         //@ts-ignore
                         this._recorder = AVAudioRecorder.alloc().initWithURLSettingsError(url, recordSetting, errorRef);
                         if (errorRef && errorRef.value) {
-                            console.error(`initWithURLSettingsError errorRef: ${errorRef.value}, ${errorRef}`);
+                            throw interop.NSErrorWrapper(errorRef.value);
                         } else {
                             this._recorder.delegate = TNSRecorderDelegate.initWithOwner(this);
                             if (options.metering) {
