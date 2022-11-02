@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.3](https://github.com/nativescript-community/audio/compare/v6.3.2...v6.3.3) (2022-11-02)
+
+
+### Bug Fixes
+
+* **ios:** more options support for recorder ([4f4c95d](https://github.com/nativescript-community/audio/commit/4f4c95dbe1beb7fc3c6818b37a273d41d73020d0))
+* **ios:** player native error throw js Error ([51b5998](https://github.com/nativescript-community/audio/commit/51b59989a8a875c6ae4a4a39ff5ff9f7fd99d398))
+
+
+
+
+
 ## [6.3.2](https://github.com/nativescript-community/audio/compare/v6.3.1...v6.3.2) (2022-10-10)
 
 
