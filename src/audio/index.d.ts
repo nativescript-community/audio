@@ -97,6 +97,8 @@ export interface AudioRecorderOptions {
     bitRate?: any;
     encoder?: any;
 
+    quality?: number; // iOS quality AVEncoderAudioQualityKey
+
     /**
      * Callback to execute when playback has an error.
      * @returns {Object} An object containing the native values for the error callback.

@@ -64,7 +64,7 @@ export class TNSRecorder extends Observable {
         return new Promise((resolve, reject) => {
             try {
                 this._recordingSession = AVAudioSession.sharedInstance();
-                let errorRef = new interop.Reference<NSError>();
+                const errorRef = new interop.Reference<NSError>();
                 this._recordingSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord, errorRef);
                 if (errorRef && errorRef.value) {
                     throw interop.NSErrorWrapper(errorRef.value);
@@ -87,9 +87,9 @@ export class TNSRecorder extends Observable {
                         //   NSNumber.numberWithInt((<any>AVAudioQuality).Medium.rawValue),
                         //   'AVEncoderAudioQualityKey'
                         // );
-                        recordSetting.setValueForKey(NSNumber.numberWithInt(AVAudioQuality.Medium), 'AVEncoderAudioQualityKey');
-                        recordSetting.setValueForKey(NSNumber.numberWithFloat(16000.0), 'AVSampleRateKey');
-                        recordSetting.setValueForKey(NSNumber.numberWithInt(1), 'AVNumberOfChannelsKey');
+                        recordSetting.setValueForKey(NSNumber.numberWithInt(options.quality || AVAudioQuality.Medium), 'AVEncoderAudioQualityKey');
+                        recordSetting.setValueForKey(NSNumber.numberWithFloat(options.sampleRate || 16000), 'AVSampleRateKey');
+                        recordSetting.setValueForKey(NSNumber.numberWithInt(options.channels || 1), 'AVNumberOfChannelsKey');
 
                         const url = NSURL.fileURLWithPath(options.filename);
 
