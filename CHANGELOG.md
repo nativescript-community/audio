@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.4](https://github.com/nativescript-community/audio/compare/v6.3.3...v6.3.4) (2022-11-22)
+
+
+### Bug Fixes
+
+* **ios:** crash fix on recorder dispose ([147ff39](https://github.com/nativescript-community/audio/commit/147ff39e9f8da4ee29b5e61eb65e09150af66437))
+
+
+
+
+
 ## [6.3.3](https://github.com/nativescript-community/audio/compare/v6.3.2...v6.3.3) (2022-11-02)
 
 
