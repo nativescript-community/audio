@@ -168,8 +168,8 @@ export class TNSRecorder extends Observable {
                     this._recorder.stop();
                     this._recorder.meteringEnabled = false;
                     this._recordingSession.setActiveError(false, null);
-                    this._recorder.release();
                     this._recorder = undefined;
+                    // this._recorder.release();
                 }
                 resolve(null);
             } catch (ex) {
