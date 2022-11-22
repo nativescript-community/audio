@@ -34,8 +34,8 @@ class TNSRecorderDelegate extends NSObject implements AVAudioRecorderDelegate {
 export { TNSRecorderDelegate };
 
 export class TNSRecorder extends Observable {
-    private _recorder: any;
-    private _recordingSession: any;
+    private _recorder: AVAudioRecorder;
+    private _recordingSession: AVAudioSession;
 
     private _recorderOptions: AudioRecorderOptions;
 
@@ -65,12 +65,14 @@ export class TNSRecorder extends Observable {
             try {
                 this._recordingSession = AVAudioSession.sharedInstance();
                 const errorRef = new interop.Reference<NSError>();
+
+                //@ts-ignore
                 this._recordingSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord, errorRef);
                 if (errorRef && errorRef.value) {
                     throw interop.NSErrorWrapper(errorRef.value);
                 }
 
-                this._recordingSession.setActiveError(true, null);
+                this._recordingSession.setActiveError(true);
                 this._recordingSession.requestRecordPermission((allowed: boolean) => {
                     if (allowed) {
                         // var recordSetting = new NSMutableDictionary((<any>[NSNumber.numberWithInt(kAudioFormatMPEG4AAC), NSNumber.numberWithInt((<any>AVAudioQuality).Medium.rawValue), NSNumber.numberWithFloat(16000.0), NSNumber.numberWithInt(1)]),
@@ -93,12 +95,16 @@ export class TNSRecorder extends Observable {
 
                         const url = NSURL.fileURLWithPath(options.filename);
 
-                        //@ts-ignore
-                        this._recorder = AVAudioRecorder.alloc().initWithURLSettingsError(url, recordSetting, errorRef);
+                        if (!this._recorder) {
+                            //@ts-ignore
+                            this._recorder = AVAudioRecorder.alloc().initWithURLSettingsError(url, recordSetting, errorRef);
+                        }
                         if (errorRef && errorRef.value) {
                             throw interop.NSErrorWrapper(errorRef.value);
                         } else {
-                            this._recorder.delegate = TNSRecorderDelegate.initWithOwner(this);
+                            if (!this._recorder.delegate) {
+                                this._recorder.delegate = TNSRecorderDelegate.initWithOwner(this);
+                            }
                             if (options.metering) {
                                 this._recorder.meteringEnabled = true;
                             }
@@ -153,7 +159,6 @@ export class TNSRecorder extends Observable {
                 }
                 // may need this in future
                 // this._recordingSession.setActiveError(false, null);
-                this._recorder.meteringEnabled = false;
                 resolve(null);
             } catch (ex) {
                 reject(ex);
@@ -167,9 +172,10 @@ export class TNSRecorder extends Observable {
                 if (this._recorder) {
                     this._recorder.stop();
                     this._recorder.meteringEnabled = false;
-                    this._recordingSession.setActiveError(false, null);
-                    this._recorder = undefined;
+                    this._recordingSession.setActiveError(false);
                     // this._recorder.release();
+                    this._recorder.delegate = null;
+                    this._recorder = null;
                 }
                 resolve(null);
             } catch (ex) {
@@ -190,5 +196,6 @@ export class TNSRecorder extends Observable {
             this._recorder.updateMeters();
             return this._recorder.averagePowerForChannel(channel);
         }
+        return null;
     }
 }
