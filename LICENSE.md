@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-nativescript-audio
+@nativescript-community/audio
 Copyright (c) 2018, nStudio, LLC.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of

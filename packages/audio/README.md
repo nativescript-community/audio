@@ -122,7 +122,7 @@ If you are going to use the recorder capability for Android, you need to add the
 ### TypeScript Example
 
 ```typescript
-import { TNSPlayer } from 'nativescript-audio';
+import { TNSPlayer } from '@nativescript-community/audio';
 
 export class YourClass {
   private _player: TNSPlayer;
@@ -178,7 +178,7 @@ export class YourClass {
 ### Javascript Example:
 
 ```javascript
-const audio = require('nativescript-audio');
+const audio = require('@nativescript-community/audio');
 
 const player = new audio.TNSPlayer();
 const playerOptions = {
