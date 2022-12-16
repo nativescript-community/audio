@@ -1,6 +1,7 @@
 {
     "name": "@nativescript-community/template-snippet",
     "version": "0.0.1",
+    "private": true,
     "dependencies": {
         "@nativescript-community/audio": "file:../packages/audio",
         "@nativescript-community/perms": "^2.2.2",
