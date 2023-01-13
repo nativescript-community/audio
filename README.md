@@ -1,20 +1,151 @@
-# NativeScript Audio
+<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+[](#demos-and-development)
 
-[![npm](https://img.shields.io/npm/v/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
-[![npm downloads](https://img.shields.io/npm/dm/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
-[![npm downloads](https://img.shields.io/npm/dt/@nativescript-community/audio.svg)](https://www.npmjs.com/package/@nativescript-community/audio)
+## Demos and Development
 
-| <img src="images/demo-ios.gif" height="500" /> | <img src="images/demo-android.gif" height="500" /> |
+
+### Repo Setup
+
+The package manager used to install and link dependencies must be `pnpm` or `yarn`. `npm` wont work.
+
+To develop and test:
+if you use `yarn` then run `yarn`
+if you use `pnpm` then run `pnpm i`
+
+**Interactive Menu:**
+
+To start the interactive menu, run `npm start` (or `yarn start` or `pnpm start`). This will list all of the commonly used scripts.
+
+### Build
+
+```bash
+npm run build.all
+```
+
+### Demos
+
+```bash
+npm run demo.[ng|react|svelte|vue].[ios|android]
+
+npm run demo.svelte.ios # Example
+```
+
+
+[](#contributing)
+
+## Contributing
+
+### Update repo 
+
+You can update the repo files quite easily
+
+First update the submodules
+
+```bash
+npm run update
+```
+
+Then commit the changes
+Then update common files
+
+```bash
+npm run sync
+```
+Then you can run `yarn|pnpm`, commit changed files if any
+
+### Publish
+
+The publishing is completely handled by `lerna` (you can add `-- --bump major` to force a major release)
+Simply run 
+```shell
+npm run publish
+```
+<br><br><!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+<!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      DO NOT EDIT THIS READEME DIRECTLY! Edit "bluesprint.md" instead.
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<h1 align="center">@nativescript-community/audio</h1>
+<p align="center">
+		<a href="https://npmcharts.com/compare/@nativescript-community/audio?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/@nativescript-community/audio.svg" height="20"/></a>
+<a href="https://www.npmjs.com/package/@nativescript-community/audio"><img alt="NPM Version" src="https://img.shields.io/npm/v/@nativescript-community/audio.svg" height="20"/></a>
+	</p>
+
+<p align="center">
+  <b>NativeScript plugin to record and play audio.</b></br>
+  <sub><sub>
+</p>
+
+<br />
+
+
+| <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-ios.gif" height="500" /> | <img src="https://raw.githubusercontent.com/nativescript-community/audio/master/images/demo-android.gif" height="500" /> |
 | --- | ----------- |
 | iOS Demo | Android Demo |
 
----
+
+[](#table-of-contents)
+
+
+[](#table-of-contents)
+
 ## Table of Contents
-1. [Installation](#installation)
-2. [Permissions](#permissions)
-3. [Usage](#usage)
-4. [API](#api)
-5. [Demos and Development](#demos-and-development)
+
+* [Installation](#installation)
+* [Installation](#installation-1)
+	* [Android Native Classes](#android-native-classes)
+	* [iOS Native Classes](#ios-native-classes)
+	* [Permissions](#permissions)
+		* [iOS](#ios)
+		* [Android](#android)
+* [Usage](#usage)
+	* [TypeScript Example](#typescript-example)
+	* [Javascript Example:](#javascript-example)
+* [API](#api)
+	* [Recorder](#recorder)
+		* [TNSRecorder Methods](#tnsrecorder-methods)
+		* [TNSRecorder Instance Properties](#tnsrecorder-instance-properties)
+	* [Player](#player)
+		* [TNSPlayer Methods](#tnsplayer-methods)
+		* [TNSPlayer Instance Properties](#tnsplayer-instance-properties)
+	* [License](#license)
+* [Demos and Development](#demos-and-development)
+	* [Setup](#setup)
+	* [Build](#build)
+	* [Demos](#demos)
+* [Questions](#questions)
+
+
+[](#installation)
+
+
+[](#installation)
+
+## Installation
+Run the following command from the root of your project:
+
+`ns plugin add @nativescript-community/audio`
+
+
+[](#installation)
+
+
+[](#installation)
 
 ## Installation
 
@@ -53,6 +184,12 @@ If you are going to use the recorder capability for Android, you need to add the
 ```xml
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 ```
+
+
+[](#usage)
+
+
+[](#usage)
 
 ## Usage
 
@@ -142,12 +279,15 @@ player
   });
 ```
 
+
+[](#api)
+
+
+[](#api)
+
 ## API
 
 ### Recorder
-
-On Android if you want to record PCM you need to use `ANDROID_ENCODER_PCM_16 | ` exported by this plugin for the `encoder` option
-While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on Android
 
 #### TNSRecorder Methods
 
@@ -163,57 +303,6 @@ While using PCM `infoCallback`, `errorCallback` and `_getMeters` are not used on
 | _isRecording()_: `boolean` - **_iOS Only_**                 | Returns true if recorder is actively recording.                          |
 | _requestRecordPermission()_: `Promise<void>`                | _Android Only_ Resolves the promise is user grants the permission.       |
 | _hasRecordPermission()_: `boolean`                          | _Android Only_ Returns true if RECORD_AUDIO permission has been granted. |
-
-```ts
-interface AudioRecorderOptions {
-    /**
-     * The name of the file recorded.
-     */
-    filename: string;
-
-    /**
-     * The audio source to record *** ANDROID ONLY for now ***
-     * https://developer.android.com/reference/android/media/MediaRecorder.AudioSource.html
-     */
-    source?: any;
-
-    /**
-     * The max duration of the audio recording.
-     */
-    maxDuration?: number;
-
-    /**
-     * Set true to enable audio metering.
-     */
-    metering?: boolean;
-
-    /**
-     * The format of the audio recording.
-     */
-    format?: any;
-    channels?: any;
-    sampleRate?: any;
-    bitRate?: any;
-
-    /**
-     * Android: encoder format (android.media.MediaRecorder.AudioEncoder | ANDROID_ENCODER_PCM_16 | ANDROID_ENCODER_PCM_8)
-     * https://developer.android.com/reference/android/media/MediaRecorder.AudioEncoder
-     */
-    encoder?: any;
-
-    /**
-     * Callback to execute when playback has an error.
-     * @returns {Object} An object containing the native values for the error callback.
-     */
-    errorCallback?: Function;
-
-    /**
-     * Callback to execute when info is emitted from the player.
-     * @returns {Object} An object containing the native values for the info callback.
-     */
-    infoCallback?: Function;
-}
-```
 
 #### TNSRecorder Instance Properties
 
@@ -242,72 +331,6 @@ interface AudioRecorderOptions {
 | _playAtTime(time: number)_: void - **_iOS Only_**                      | Play audio track at specific time of duration.               |
 | _changePlayerSpeed(speed: number)_: void - **On Android Only API 23+** | Change the playback speed of the media player.               |
 
-```ts
-interface AudioPlayerOptions {
-    /**
-     * The audio file to play.
-     */
-    audioFile: string;
-
-    /**
-     * Set true to loop audio playback.
-     */
-    loop: boolean;
-
-    /**
-     * Prevent autoplay if desired as player autoplays be default
-     */
-    autoPlay?: boolean;
-
-    /**
-     * Set true to enable audio metering.
-     */
-    metering?: boolean;
-
-    pitch?: number;
-
-    /**
-     * Callback to execute when playback has completed.
-     * @returns {Object} An object containing the native values for the callback.
-     */
-    completeCallback?: Function;
-
-    /**
-     * Callback to execute when playback has an error.
-     * @returns {Object} An object containing the native values for the error callback.
-     */
-    errorCallback?: Function;
-
-    /**
-     * Callback to execute when info is emitted from the player.
-     * @returns {Object} An object containing the native values for the info callback.
-     */
-    infoCallback?: Function;
-
-    /**
-     * Should mix audio.
-     */
-    audioMixing?: boolean;
-
-    /**
-     * iOS: The category for playing recorded music or other sounds that are central to the successful use of your app.
-     *  https://developer.apple.com/documentation/avfaudio/avaudiosessioncategory?language=objc
-     */
-    sessionCategory?: string;
-
-    /**
-     * iOS: Audio session mode identifiers.
-     * https://developer.apple.com/documentation/avfaudio/avaudiosessionmode
-     */
-    sessionMode?: string;
-
-    /**
-     * iOS: Cases that indicate the possible route-sharing policies for an audio session.
-     * https://developer.apple.com/documentation/avfaudio/avaudiosessionroutesharingpolicy
-     */
-    sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
-}
-```
 #### TNSPlayer Instance Properties
 
 | Property                | Description                                                |
@@ -322,31 +345,53 @@ interface AudioPlayerOptions {
 
 [MIT](/LICENSE)
 
+
+[](#demos-and-development)
+
+
+[](#demos-and-development)
+
 ## Demos and Development
+
+
+### Setup
 
 To run the demos, you must clone this repo **recursively**.
 
 ```
-git clone https://github.com/nativescript-community/audio.git --recursive
+git clone https://github.com/@nativescript-community/audio.git --recursive
 ```
 
-### Install Dependencies:
+**Install Dependencies:**
 ```bash
 npm i # or 'yarn install' or 'pnpm install'
 ```
 
-### Interactive Menu:
+**Interactive Menu:**
+
 To start the interactive menu, run `npm start` (or `yarn start` or `pnpm start`). This will list all of the commonly used scripts.
 
-### Building Plugin:
+### Build
+
 ```bash
 npm run build
+
+npm run build.angular # or for Angular
 ```
 
-### Running Demos:
+### Demos
+
 ```bash
-npm run demo.[vue].[ios|android]
+npm run demo.[ng|react|svelte|vue].[ios|android]
 
-# Example:
-npm run demo.svelte.ios
+npm run demo.svelte.ios # Example
 ```
+
+[](#questions)
+
+
+[](#questions)
+
+## Questions
+
+If you have any questions/issues/comments please feel free to create an issue or start a conversation in the [NativeScript Community Discord](https://nativescript.org/discord).
