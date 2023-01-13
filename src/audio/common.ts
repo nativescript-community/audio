@@ -8,7 +8,8 @@ export const ANDROID_ENCODER_PCM_16 = 1612341;
 export enum AudioPlayerEvents {
     seek = 'seek',
     paused = 'paused',
-    started = 'started'
+    started = 'started',
+    stopped = 'stopped'
 }
 /**
  * Helper function to determine if string is a url.

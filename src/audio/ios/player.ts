@@ -213,6 +213,19 @@ export class TNSPlayer extends Observable {
         }
     }
 
+    public async stop() {
+        try {
+            if (this._player && this._player.playing) {
+                this._player.stop();
+            }
+        } catch (ex) {
+            if (this.errorCallback) {
+                this.errorCallback({ ex });
+            }
+            throw ex;
+        }
+    }
+
     public async play() {
         try {
             if (!this.isAudioPlaying()) {

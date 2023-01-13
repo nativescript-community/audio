@@ -300,6 +300,15 @@ export class TNSPlayer extends Observable {
             this.notify({ eventName: AudioPlayerEvents.paused });
         }
     }
+    public async stop() {
+        if (this._player && this._player.isPlaying()) {
+            this._player.stop();
+            // We abandon the audio focus but we still preserve
+            // the MediaPlayer so we can resume it in the future
+            this._abandonAudioFocus(true);
+            this.notify({ eventName: AudioPlayerEvents.stopped });
+        }
+    }
 
     public async play() {
         const player = this._player;
