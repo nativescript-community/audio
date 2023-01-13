@@ -48,8 +48,8 @@
         ]
     },
     "dependencies": {
-        "@nativescript-community/perms": "^2.2.2",
-        "@nativescript-community/plugin-seed-tools": "file:tools"
+        "@nativescript-community/plugin-seed-tools": "file:tools",
+        "@nativescript-community/template-snippet": "file:demo-snippets"
     },
     "ntl": {
         "descriptions": {
@@ -69,9 +69,7 @@
         }
     },
     "dependenciesMeta": {
-        "@nativescript-community/plugin-seed-tools": {
-            "injected": true
-        }
+        "@nativescript-community/plugin-seed-tools": {}
     },
     "workspaces": [
         "packages/*",
