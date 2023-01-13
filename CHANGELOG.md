@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.5](https://github.com/nativescript-community/audio/compare/v6.3.4...v6.3.5) (2023-01-13)
+
+
+### Features
+
+* stop method ([18c82f7](https://github.com/nativescript-community/audio/commit/18c82f7d00f7fb33e27ef7dcaa7259e97029aefe))
+
+
+
+
+
 ## [6.3.4](https://github.com/nativescript-community/audio/compare/v6.3.3...v6.3.4) (2022-11-22)
 
 
