@@ -174,6 +174,11 @@ export declare class TNSPlayer {
     pause(): Promise<boolean>;
 
     /**
+     * Stop playing audio file.
+     */
+    stop(): Promise<boolean>;
+
+    /**
      * Resume audio player.
      */
     resume(): void;
