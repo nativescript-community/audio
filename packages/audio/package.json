@@ -1,6 +1,6 @@
 {
     "name": "@nativescript-community/audio",
-    "version": "6.3.6",
+    "version": "6.3.7",
     "description": "NativeScript plugin to record and play audio.",
     "main": "./index",
     "sideEffects": false,
