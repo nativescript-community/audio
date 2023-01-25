@@ -53,6 +53,7 @@
 
 <script lang="ts">
 import { AudioPlayerOptions, AudioRecorderOptions, TNSPlayer, TNSRecorder } from '@nativescript-community/audio';
+import { request } from '@nativescript-community/perms';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import Vue, { NativeScriptVue } from 'nativescript-vue';
 import { Application, Dialogs, File, Observable, Page, Slider, Utils, isAndroid, knownFolders } from '@nativescript/core';
@@ -61,7 +62,7 @@ import { Application, Dialogs, File, Observable, Page, Slider, Utils, isAndroid,
 export default class Demo extends Vue {
     _meterInterval;
     _slider;
-    _recorder;
+    _recorder: TNSRecorder;
     _player: TNSPlayer;
 
     isPlaying = false;
@@ -106,6 +107,11 @@ export default class Demo extends Vue {
                 this._player.volume = this._slider.value / 100;
             });
         }
+
+        request({
+            microphone:{},
+            storage:{}
+        }).then(r=>console.log(r))
     }
     get message() {
         return 'Audio {N}-Vue app';
@@ -116,7 +122,7 @@ export default class Demo extends Vue {
                 Dialogs.alert('This device cannot record audio.');
                 return;
             }
-            const audioFolder = knownFolders.currentApp().getFolder('audio');
+            const audioFolder = knownFolders.externalDocuments().getFolder('audio');
             console.log(JSON.stringify(audioFolder));
 
             let androidFormat;
@@ -136,8 +142,11 @@ export default class Demo extends Vue {
                 filename: recordingPath,
 
                 format: androidFormat,
+                sampleRate: 48000,
+                android: __ANDROID__ ? {
+                    encoder: androidEncoder
+                } :  undefined,
 
-                encoder: androidEncoder,
 
                 metering: true,
 

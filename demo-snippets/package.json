@@ -2,9 +2,16 @@
     "name": "@nativescript-community/template-snippet",
     "version": "0.0.1",
     "private": true,
+
+    "nativescript": {
+        "platforms": {
+            "android": "3.0.0",
+            "ios": "3.0.0"
+        }
+    },
     "dependencies": {
-        "@nativescript-community/audio": "file:../packages/audio",
-        "@nativescript-community/perms": "^2.2.2",
+        "@nativescript-community/audio": "*",
+        "@nativescript-community/perms": "^2.2.25",
         "vue-class-component": "7.2.6",
         "vue-property-decorator": "~9.1.2"
     }
