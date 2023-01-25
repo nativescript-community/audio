@@ -1,6 +1,6 @@
 import { Observable } from '@nativescript/core';
 
-export { AudioPlayerEvents, ANDROID_ENCODER_PCM, ANDROID_ENCODER_PCM_16 } from './common';
+export { AudioPlayerEvents, ANDROID_ENCODER_PCM } from './common';
 export interface AudioPlayerOptions {
     /**
      * The audio file to play.
@@ -66,6 +66,11 @@ export interface AudioPlayerOptions {
     sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
 }
 
+export interface AudioRecorderAndroidOptions {
+    wavAaudioFormat?: any; // Android only select AudioFormat for wav recording
+    audioSource?: any; // Android only select AudioFormat for wav recording
+    encoder?: any;
+}
 export interface AudioRecorderOptions {
     /**
      * The name of the file recorded.
@@ -95,9 +100,12 @@ export interface AudioRecorderOptions {
     channels?: any;
     sampleRate?: any;
     bitRate?: any;
-    encoder?: any;
 
-    quality?: number; // iOS quality AVEncoderAudioQualityKey
+    android?: AudioRecorderAndroidOptions;
+
+    ios?: {
+        [k: string]: any;
+    };
 
     /**
      * Callback to execute when playback has an error.

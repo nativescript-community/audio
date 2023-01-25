@@ -1,3 +1,5 @@
 dependencies {
-    implementation 'com.github.squti:Android-Wave-Recorder:1.7.0'
+    // implementation 'com.github.squti:Android-Wave-Recorder:1.7.0'
+    // implementation 'com.kailashdabhi:om-recorder:1.1.5'
+
 }

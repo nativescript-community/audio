@@ -33,6 +33,13 @@ class TNSRecorderDelegate extends NSObject implements AVAudioRecorderDelegate {
 
 export { TNSRecorderDelegate };
 
+function isInt(n) {
+    return n % 1 === 0;
+}
+function isBoolean(n) {
+    return typeof n === 'boolean';
+}
+
 export class TNSRecorder extends Observable {
     private _recorder: AVAudioRecorder;
     private _recordingSession: AVAudioSession;
@@ -89,10 +96,26 @@ export class TNSRecorder extends Observable {
                         //   NSNumber.numberWithInt((<any>AVAudioQuality).Medium.rawValue),
                         //   'AVEncoderAudioQualityKey'
                         // );
-                        recordSetting.setValueForKey(NSNumber.numberWithInt(options.quality || AVAudioQuality.Medium), 'AVEncoderAudioQualityKey');
+                        // recordSetting.setValueForKey(NSNumber.numberWithInt(options.quality || AVAudioQuality.Medium), 'AVEncoderAudioQualityKey');
                         recordSetting.setValueForKey(NSNumber.numberWithFloat(options.sampleRate || 16000), 'AVSampleRateKey');
                         recordSetting.setValueForKey(NSNumber.numberWithInt(options.channels || 1), 'AVNumberOfChannelsKey');
-
+                        if (options.ios) {
+                            Object.keys(options.ios).forEach((k) => {
+                                const value = options.ios[k];
+                                if (isBoolean(value)) {
+                                    recordSetting.setValueForKey(NSNumber.numberWithBool(value), k);
+                                }
+                                if (typeof value === 'number') {
+                                    if (isInt(value)) {
+                                        recordSetting.setValueForKey(NSNumber.numberWithFloat(value), k);
+                                    } else {
+                                        recordSetting.setValueForKey(NSNumber.numberWithInt(value), k);
+                                    }
+                                } else {
+                                    recordSetting.setValueForKey(value, k);
+                                }
+                            });
+                        }
                         const url = NSURL.fileURLWithPath(options.filename);
 
                         if (!this._recorder) {

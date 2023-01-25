@@ -1,14 +1,16 @@
 import { check, request } from '@nativescript-community/perms';
-import { Application } from '@nativescript/core';
-import { ANDROID_ENCODER_PCM, ANDROID_ENCODER_PCM_16, AudioRecorderOptions } from '..';
+import { Application, Utils } from '@nativescript/core';
+import { ANDROID_ENCODER_PCM, AudioRecorderAndroidOptions, AudioRecorderOptions } from '..';
 
 export class TNSRecorder {
-    private _recorder: any;
-    private _wavrecorder: any;
+    // private _recorder: android.media.MediaRecorder;
+    // private _wavrecorder: com.github.squti.androidwaverecorder.WaveRecorder;
 
+    private _recorder: android.media.MediaRecorder;
+    private _wavrecorder: com.kailashdabhi.omrecorder.Recorder;
 
     public static CAN_RECORD(): boolean {
-        const pManager = Application.android.context.getPackageManager();
+        const pManager = Utils.android.getApplicationContext().getPackageManager();
         const canRecord = pManager.hasSystemFeature(android.content.pm.PackageManager.FEATURE_MICROPHONE);
         if (canRecord) {
             return true;
@@ -29,15 +31,27 @@ export class TNSRecorder {
     public async start(options: AudioRecorderOptions) {
         // bake the permission into this so the dev doesn't have to call it
         await this.requestRecordPermission();
-
+        const androidOptions: AudioRecorderAndroidOptions = options.android || {};
         const audioSource = options.source ? options.source : 0;
         if (this._recorder) {
             // reset for reuse
             this._recorder.reset();
         } else {
-            if (options.encoder === ANDROID_ENCODER_PCM || options.encoder === ANDROID_ENCODER_PCM_16) {
+            if (androidOptions.wavAaudioFormat !== undefined) {
                 //@ts-ignore
-                this._wavrecorder = new com.github.squti.androidwaverecorder.WaveRecorder(options.filename);
+                this._wavrecorder = new com.kailashdabhi.omrecorder.OmRecorder.wav(
+                    new com.kailashdabhi.omrecorder.PullTransport.Default(
+                        new com.kailashdabhi.omrecorder.PullableSource.Default(
+                            new com.kailashdabhi.omrecorder.AudioRecordConfig.Default(
+                                androidOptions.audioSource !== undefined ? androidOptions.audioSource : android.media.MediaRecorder.AudioSource.MIC,
+                                androidOptions.wavAaudioFormat,
+                                options.channels === 1 ? android.media.AudioFormat.CHANNEL_IN_MONO : android.media.AudioFormat.CHANNEL_IN_STEREO,
+                                options.sampleRate || 16000
+                            )
+                        )
+                    ),
+                    new java.io.File(options.filename)
+                );
             } else {
                 this._recorder = new android.media.MediaRecorder();
             }
@@ -47,7 +61,7 @@ export class TNSRecorder {
             const outFormat = options.format ? options.format : 0;
             this._recorder.setOutputFormat(outFormat);
 
-            const encoder = options.encoder ? options.encoder : 0;
+            const encoder = androidOptions.encoder ? androidOptions.encoder : 0;
             this._recorder.setAudioEncoder(encoder);
 
             if (options.channels) {
@@ -85,12 +99,8 @@ export class TNSRecorder {
             this._recorder.prepare();
             this._recorder.start();
         } else if (this._wavrecorder) {
-            this._wavrecorder.waveConfig.sampleRate = options.sampleRate || 16000;
-            this._wavrecorder.waveConfig.channels = options.channels === 1 ? android.media.AudioFormat.CHANNEL_IN_MONO : android.media.AudioFormat.CHANNEL_IN_STEREO;
-            this._wavrecorder.waveConfig.audioEncoding = options.encoder === ANDROID_ENCODER_PCM_16 ? android.media.AudioFormat.ENCODING_PCM_16BIT : android.media.AudioFormat.ENCODING_PCM_8BIT;
             this._wavrecorder.startRecording();
         }
-
     }
 
     public getMeters(): number {
