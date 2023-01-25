@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/nativescript-community/audio/compare/v6.3.8...v6.4.0) (2023-01-25)
+
+
+### Features
+
+* rewrote android wav handling to support float encoding (AudioFormat.ENCODING_PCM_FLOAT) ([a9dd86a](https://github.com/nativescript-community/audio/commit/a9dd86a0fa9e8cf87a04dfcf47eea60c0e54a07e))
+
+
+
+
+
 ## [6.3.8](https://github.com/nativescript-community/audio/compare/v6.3.7...v6.3.8) (2023-01-24)
 
 
