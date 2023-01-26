@@ -32,19 +32,19 @@ export class TNSRecorder {
         // bake the permission into this so the dev doesn't have to call it
         await this.requestRecordPermission();
         const androidOptions: AudioRecorderAndroidOptions = options.android || {};
-        const audioSource = options.source ? options.source : 0;
+        const audioSource = androidOptions.source ? androidOptions.source : 0;
         if (this._recorder) {
             // reset for reuse
             this._recorder.reset();
         } else {
-            if (androidOptions.wavAaudioFormat !== undefined) {
+            if (androidOptions.wavAudioFormat !== undefined) {
                 //@ts-ignore
                 this._wavrecorder = new com.kailashdabhi.omrecorder.OmRecorder.wav(
                     new com.kailashdabhi.omrecorder.PullTransport.Default(
                         new com.kailashdabhi.omrecorder.PullableSource.Default(
                             new com.kailashdabhi.omrecorder.AudioRecordConfig.Default(
-                                androidOptions.audioSource !== undefined ? androidOptions.audioSource : android.media.MediaRecorder.AudioSource.MIC,
-                                androidOptions.wavAaudioFormat,
+                                audioSource,
+                                androidOptions.wavAudioFormat,
                                 options.channels === 1 ? android.media.AudioFormat.CHANNEL_IN_MONO : android.media.AudioFormat.CHANNEL_IN_STEREO,
                                 options.sampleRate || 16000
                             )

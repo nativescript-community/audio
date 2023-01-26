@@ -67,21 +67,19 @@ export interface AudioPlayerOptions {
 }
 
 export interface AudioRecorderAndroidOptions {
-    wavAaudioFormat?: any; // Android only select AudioFormat for wav recording
-    audioSource?: any; // Android only select AudioFormat for wav recording
+    wavAudioFormat?: any; // Android only select AudioFormat for wav recording
     encoder?: any;
+
+    /**
+     * https://developer.android.com/reference/android/media/MediaRecorder.AudioSource.html
+     */
+    source?: any;
 }
 export interface AudioRecorderOptions {
     /**
      * The name of the file recorded.
      */
     filename: string;
-
-    /**
-     * The audio source to record *** ANDROID ONLY for now ***
-     * https://developer.android.com/reference/android/media/MediaRecorder.AudioSource.html
-     */
-    source?: any;
 
     /**
      * The max duration of the audio recording.
