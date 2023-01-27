@@ -16,7 +16,13 @@
         "android.media:MediaRecorder",
         "android.media:MediaRecorder.OnErrorListener",
         "android.media:MediaRecorder.OnInfoListener",
-        "com.github.squti.androidwaverecorder:WaveRecorder",
-        "com.github.squti.androidwaverecorder:WaveConfig"
+        "com.kailashdabhi.omrecorder:OmRecorder",
+        "com.kailashdabhi.omrecorder:Recorder",
+        "com.kailashdabhi.omrecorder:PullTransport",
+        "com.kailashdabhi.omrecorder:PullTransport.Default",
+        "com.kailashdabhi.omrecorder:PullableSource",
+        "com.kailashdabhi.omrecorder:PullableSource.Default",
+        "com.kailashdabhi.omrecorder:AudioRecordConfig",
+        "com.kailashdabhi.omrecorder:AudioRecordConfig.Default"
     ]
 }
