@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.2](https://github.com/nativescript-community/audio/compare/v6.4.1...v6.4.2) (2023-01-27)
+
+
+### Bug Fixes
+
+* **android:** native api usage fix ([733080c](https://github.com/nativescript-community/audio/commit/733080cc333cad5fdae909a35b965f215ce9a879))
+
+
+
+
+
 ## [6.4.1](https://github.com/nativescript-community/audio/compare/v6.4.0...v6.4.1) (2023-01-26)
 
 **Note:** Version bump only for package @nativescript-community/audio
