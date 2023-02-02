@@ -71,10 +71,18 @@ export class TNSRecorder extends Observable {
         return new Promise((resolve, reject) => {
             try {
                 this._recordingSession = AVAudioSession.sharedInstance();
+
                 const errorRef = new interop.Reference<NSError>();
 
+                this._recordingSession.setCategoryModeRouteSharingPolicyOptionsError(
+                    options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryPlayAndRecord,
+                    options.sessionMode !== undefined ? options.sessionMode : AVAudioSessionModeDefault,
+                    options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
+                    options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+                    //@ts-ignore
+                    errorRef
+                );
                 //@ts-ignore
-                this._recordingSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord, errorRef);
                 if (errorRef && errorRef.value) {
                     throw interop.NSErrorWrapper(errorRef.value);
                 }

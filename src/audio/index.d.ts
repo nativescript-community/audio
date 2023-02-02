@@ -106,6 +106,29 @@ export interface AudioRecorderOptions {
     };
 
     /**
+     * Should mix audio.
+     */
+    audioMixing?: boolean;
+
+    /**
+     * iOS: The category for playing recorded music or other sounds that are central to the successful use of your app.
+     *  https://developer.apple.com/documentation/avfaudio/avaudiosessioncategory?language=objc
+     */
+    sessionCategory?: string;
+
+    /**
+     * iOS: Audio session mode identifiers.
+     * https://developer.apple.com/documentation/avfaudio/avaudiosessionmode
+     */
+    sessionMode?: string;
+
+    /**
+     * iOS: Cases that indicate the possible route-sharing policies for an audio session.
+     * https://developer.apple.com/documentation/avfaudio/avaudiosessionroutesharingpolicy
+     */
+    sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
+
+    /**
      * Callback to execute when playback has an error.
      * @returns {Object} An object containing the native values for the error callback.
      */
