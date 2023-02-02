@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.3](https://github.com/nativescript-community/audio/compare/v6.4.2...v6.4.3) (2023-02-02)
+
+
+### Bug Fixes
+
+* **ios:** more recording session options ([c0fe830](https://github.com/nativescript-community/audio/commit/c0fe830f16e1e36174dc88d314f43fd2832f7158))
+
+
+
+
+
 ## [6.4.2](https://github.com/nativescript-community/audio/compare/v6.4.1...v6.4.2) (2023-01-27)
 
 
