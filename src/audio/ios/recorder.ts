@@ -13,21 +13,21 @@ class TNSRecorderDelegate extends NSObject implements AVAudioRecorderDelegate {
     }
 
     audioRecorderDidFinishRecording(recorder: any, success: boolean) {
-        const owner = this._owner.get();
-        if (owner) {
-            // owner.notify({
-            //   eventName: 'RecorderFinished',
-            // })
-        }
+        // const owner = this._owner?.get();
+        // if (owner) {
+        // owner.notify({
+        //   eventName: 'RecorderFinished',
+        // })
+        // }
     }
 
     audioRecorderDidFinishRecordingSuccessfully(recorder: AVAudioRecorder, flag) {
-        const owner = this._owner.get();
-        if (owner) {
-            // owner.notify({
-            //   eventName: 'RecorderFinishedSuccessfully',
-            // })
-        }
+        // const owner = this._owner?.get();
+        // if (owner) {
+        // owner.notify({
+        //   eventName: 'RecorderFinishedSuccessfully',
+        // })
+        // }
     }
 }
 
@@ -75,7 +75,7 @@ export class TNSRecorder extends Observable {
                 const errorRef = new interop.Reference<NSError>();
 
                 this._recordingSession.setCategoryModeRouteSharingPolicyOptionsError(
-                    options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryPlayAndRecord,
+                    options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryRecord,
                     options.sessionMode !== undefined ? options.sessionMode : AVAudioSessionModeDefault,
                     options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
                     options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
