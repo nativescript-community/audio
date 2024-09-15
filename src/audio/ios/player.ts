@@ -15,7 +15,7 @@ class TNSPlayerDelegate extends NSObject implements AVAudioPlayerDelegate {
     }
 
     audioPlayerDidFinishPlayingSuccessfully(player?: any, flag?: boolean) {
-        const owner = this._owner.get();
+        const owner = this._owner?.get();
         if (owner) {
             if (flag && owner.completeCallback) {
                 owner.completeCallback({ player, flag });
@@ -26,7 +26,7 @@ class TNSPlayerDelegate extends NSObject implements AVAudioPlayerDelegate {
     }
 
     audioPlayerDecodeErrorDidOccurError(player: any, error: NSError) {
-        const owner = this._owner.get();
+        const owner = this._owner?.get();
         if (owner) {
             if (owner.errorCallback) {
                 owner.errorCallback({ player, error });

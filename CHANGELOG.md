@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.4](https://github.com/nativescript-community/audio/compare/v6.4.3...v6.4.4) (2023-09-11)
+
+
+### Bug Fixes
+
+* **ios:** prevent errors in delegates ([3634ce2](https://github.com/nativescript-community/audio/commit/3634ce26541e976dec67bcc3d4a25109b04ce913))
+
+
+
+
+
 ## [6.4.3](https://github.com/nativescript-community/audio/compare/v6.4.2...v6.4.3) (2023-02-02)
 
 
