@@ -12,6 +12,7 @@
         "android.media:MediaPlayer.OnErrorListener",
         "android.media:MediaPlayer.OnCompletionListener",
         "android.media:MediaPlayer.OnPreparedListener",
+        "android.media:MediaDataSource",
         "android.media:PlaybackParams",
         "android.media:MediaRecorder",
         "android.media:MediaRecorder.OnErrorListener",

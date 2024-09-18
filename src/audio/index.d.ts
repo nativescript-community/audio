@@ -64,6 +64,16 @@ export interface AudioPlayerOptions {
      * https://developer.apple.com/documentation/avfaudio/avaudiosessionroutesharingpolicy
      */
     sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
+
+    /**
+     * Android: Used to determine volume source on android < 26. Otherwise use contentType option while creating the player.
+     * https://developer.android.com/reference/android/media/MediaPlayer#setAudioStreamType(int)
+     */
+    audioStreamType?: number;
+    /**
+     * Android: custom player datasource.
+     */
+    dataSource?: android.media.MediaDataSource;
 }
 
 export interface AudioRecorderAndroidOptions {

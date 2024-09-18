@@ -1,6 +1,7 @@
 import { Application, EventData, Observable, Utils } from '@nativescript/core';
-import { AudioPlayerEvents, resolveAudioFilePath } from '../common';
-import { AudioPlayerOptions } from '..';
+import { SDK_VERSION } from '@nativescript/core/utils';
+import { AudioPlayerEvents, resolveAudioFilePath } from './common';
+import { AudioPlayerOptions } from '.';
 
 export enum AudioFocusDurationHint {
     AUDIOFOCUS_GAIN = android.media.AudioManager.AUDIOFOCUS_GAIN,
@@ -34,7 +35,7 @@ export class AudioFocusManager extends Observable {
         super();
         options = { ...defaultAudioFocusManagerOptions, ...(options || {}) };
         this._durationHint = options.durationHint;
-        if (android.os.Build.VERSION.SDK_INT < 26) {
+        if (SDK_VERSION < 26) {
             return;
         }
         // Request audio focus for play back
@@ -71,11 +72,11 @@ export class AudioFocusManager extends Observable {
         let result = true;
         let focusResult = null;
         if (!this._mAudioFocusGranted) {
-            const ctx = this._getAndroidContext();
+            const ctx = Utils.android.getApplicationContext();
             const am = ctx.getSystemService(android.content.Context.AUDIO_SERVICE) as android.media.AudioManager;
 
             // Request audio focus for play back
-            if (android.os.Build.VERSION.SDK_INT >= 26) {
+            if (SDK_VERSION >= 26) {
                 focusResult = am.requestAudioFocus(this._audioFocusRequest);
             } else {
                 focusResult = am.requestAudioFocus(this._mOnAudioFocusChangeListener, android.media.AudioManager.STREAM_MUSIC, this._durationHint);
@@ -109,11 +110,11 @@ export class AudioFocusManager extends Observable {
         if (this.needsFocus() || !this._mAudioFocusGranted) {
             return this._mAudioFocusGranted;
         }
-        const ctx = this._getAndroidContext();
+        const ctx = Utils.android.getApplicationContext();
         const am = ctx.getSystemService(android.content.Context.AUDIO_SERVICE);
         let result = null;
 
-        if (android.os.Build.VERSION.SDK_INT >= 26) {
+        if (SDK_VERSION >= 26) {
             result = am.abandonAudioFocusRequest(this._audioFocusRequest);
 
             // this._audioFocusRequest = null;
@@ -126,22 +127,6 @@ export class AudioFocusManager extends Observable {
             console.error('Failed to abandon audio focus.');
         }
         return this._mAudioFocusGranted;
-    }
-    private _getAndroidContext() {
-        let ctx = Application.android.context;
-        if (!ctx) {
-            ctx = Application.getNativeApplication().getApplicationContext();
-        }
-
-        if (ctx === null) {
-            setTimeout(() => {
-                this._getAndroidContext();
-            }, 200);
-
-            return;
-        }
-
-        return ctx;
     }
 }
 
@@ -180,27 +165,23 @@ export class TNSPlayer extends Observable {
 
     get volume(): number {
         // TODO: find better way to get individual player volume
-        const ctx = this._getAndroidContext();
+        const ctx = Utils.android.getApplicationContext();
         const mgr = ctx.getSystemService(android.content.Context.AUDIO_SERVICE);
         return mgr.getStreamVolume(android.media.AudioManager.STREAM_MUSIC);
     }
 
     set volume(value: number) {
-        if (this._player && value >= 0) {
-            this._player.setVolume(value, value);
+        if (value >= 0) {
+            this._player?.setVolume(value, value);
         }
     }
 
     public get duration(): number {
-        if (this._player) {
-            return this._player.getDuration();
-        } else {
-            return 0;
-        }
+        return this._player?.getDuration() ?? 0;
     }
 
     get currentTime(): number {
-        return this._player ? this._player.getCurrentPosition() : 0;
+        return this._player?.getCurrentPosition() ?? 0;
     }
 
     public setAudioFocusManager(manager: AudioFocusManager) {
@@ -232,15 +213,22 @@ export class TNSPlayer extends Observable {
                     options.autoPlay = true;
                 }
                 const player = this._player;
-                const audioPath = resolveAudioFilePath(options.audioFile);
-                player.setAudioStreamType(android.media.AudioManager.STREAM_MUSIC);
+                if (SDK_VERSION < 26) {
+                    player.setAudioStreamType(options.audioStreamType ?? android.media.AudioManager.STREAM_MUSIC);
+                }
                 player.reset();
-                player.setDataSource(audioPath);
+                if (options.audioFile) {
+                    const audioPath = resolveAudioFilePath(options.audioFile);
+                    player.setDataSource(audioPath);
 
-                // check if local file or remote - local then `prepare` is okay https://developer.android.com/reference/android/media/MediaPlayer.html#prepare()
-                if (Utils.isFileOrResourcePath(audioPath)) {
-                    player.prepare();
-                } else {
+                    // check if local file or remote - local then `prepare` is okay https://developer.android.com/reference/android/media/MediaPlayer.html#prepare()
+                    if (Utils.isFileOrResourcePath(audioPath)) {
+                        player.prepare();
+                    } else {
+                        player.prepareAsync();
+                    }
+                } else if (options.dataSource) {
+                    player.setDataSource(options.dataSource);
                     player.prepareAsync();
                 }
 
@@ -364,7 +352,7 @@ export class TNSPlayer extends Observable {
 
     public changePlayerSpeed(speed) {
         // this checks on API 23 and up
-        if (android.os.Build.VERSION.SDK_INT >= 23 && this.play) {
+        if (SDK_VERSION >= 23 && this.play) {
             if (this._player?.isPlaying()) {
                 (this._player as any).setPlaybackParams((this._player as any).getPlaybackParams().setSpeed(speed));
             } else {
@@ -419,23 +407,6 @@ export class TNSPlayer extends Observable {
             this._mediaPlayer.release();
             this._mediaPlayer = undefined;
         }
-    }
-
-    private _getAndroidContext() {
-        let ctx = Application.android.context;
-        if (!ctx) {
-            ctx = Application.getNativeApplication().getApplicationContext();
-        }
-
-        if (ctx === null) {
-            setTimeout(() => {
-                this._getAndroidContext();
-            }, 200);
-
-            return;
-        }
-
-        return ctx;
     }
     /**
      * This getter will instantiate the MediaPlayer if needed
