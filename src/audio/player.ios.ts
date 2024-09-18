@@ -1,5 +1,5 @@
 import { Observable, Utils, knownFolders, path as nsFilePath } from '@nativescript/core';
-import { AudioPlayerOptions } from '..';
+import { AudioPlayerOptions } from '.';
 
 declare let AVAudioPlayer;
 

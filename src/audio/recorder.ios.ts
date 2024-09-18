@@ -1,5 +1,5 @@
 import { Observable } from '@nativescript/core';
-import { AudioRecorderOptions } from '..';
+import { AudioRecorderOptions } from '.';
 
 @NativeClass()
 class TNSRecorderDelegate extends NSObject implements AVAudioRecorderDelegate {

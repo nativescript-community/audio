@@ -1,6 +1,6 @@
 import { check, request } from '@nativescript-community/perms';
 import { Application, Utils } from '@nativescript/core';
-import { ANDROID_ENCODER_PCM, AudioRecorderAndroidOptions, AudioRecorderOptions } from '..';
+import { ANDROID_ENCODER_PCM, AudioRecorderAndroidOptions, AudioRecorderOptions } from '.';
 
 export class TNSRecorder {
     // private _recorder: android.media.MediaRecorder;
