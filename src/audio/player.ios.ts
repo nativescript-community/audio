@@ -64,14 +64,14 @@ export class TNSPlayer extends Observable {
 
     public get duration() {
         if (this._player) {
-            return this._player.duration;
+            return Math.round(this._player.duration * 1000);
         } else {
             return 0;
         }
     }
 
     get currentTime(): number {
-        return this._player ? this._player.currentTime : 0;
+        return this._player ? Math.round(this._player.currentTime * 1000) : 0;
     }
 
     public setAudioFocusManager(manager: any) {}
@@ -290,7 +290,7 @@ export class TNSPlayer extends Observable {
 
     public async getAudioTrackDuration() {
         try {
-            const duration = this._player ? this._player.duration : 0;
+            const duration = this._player ? Math.round(this._player.duration * 1000) : 0;
             return duration;
         } catch (ex) {
             if (this.errorCallback) {
