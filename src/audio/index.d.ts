@@ -66,6 +66,12 @@ export interface AudioPlayerOptions {
     sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
 
     /**
+     * iOS: acive session.
+     * https://developer.apple.com/documentation/avfaudio/avaudiosession/1616627-setactive
+     */
+    active?: boolean;
+
+    /**
      * Android: Used to determine volume source on android < 26. Otherwise use contentType option while creating the player.
      * https://developer.android.com/reference/android/media/MediaPlayer#setAudioStreamType(int)
      */
