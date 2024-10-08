@@ -74,6 +74,15 @@ export class TNSPlayer extends Observable {
         return this._player ? Math.round(this._player.currentTime * 1000) : 0;
     }
 
+    handleAudioError(error, reject) {
+        if (this.errorCallback) {
+            this.errorCallback({ error });
+        }
+        if (reject) {
+            reject(error);
+        }
+    }
+
     public setAudioFocusManager(manager: any) {}
 
     public initFromFile(options: AudioPlayerOptions) {
@@ -141,7 +150,13 @@ export class TNSPlayer extends Observable {
                 const errorRef = new interop.Reference<NSError>();
                 this._player = AVAudioPlayer.alloc().initWithContentsOfURLError(NSURL.fileURLWithPath(fileName), errorRef);
                 if (errorRef && errorRef.value) {
-                    throw interop.NSErrorWrapper(errorRef.value);
+                    if (typeof interop.NSErrorWrapper === "function") {
+                        this.handleAudioError(interop.NSErrorWrapper(errorRef.value), reject);
+                    } else {
+                        const osError = errorRef.value.code;
+                        this.handleAudioError(new Error(errorRef.value.localizedDescription ?? "An unknown error occurred with OSStatus: " + osError), reject);
+                    }
+                    return;
                 } else if (this._player) {
                     this.handleStartPlayer(options);
 
@@ -180,7 +195,13 @@ export class TNSPlayer extends Observable {
                     const errorRef = new interop.Reference<NSError>();
                     this._player = AVAudioPlayer.alloc().initWithDataError(data, errorRef);
                     if (errorRef && errorRef.value) {
-                        throw interop.NSErrorWrapper(errorRef.value);
+                        if (typeof interop.NSErrorWrapper === "function") {
+                            this.handleAudioError(interop.NSErrorWrapper(errorRef.value), reject);
+                        } else {
+                            const osError = errorRef.value.code;
+                            this.handleAudioError(new Error(errorRef.value.localizedDescription ?? "An unknown error occurred with OSStatus: " + osError), reject);
+                        }
+                        return;
                     } else if (this._player) {
                         this.handleStartPlayer(options);
 
