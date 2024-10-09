@@ -180,7 +180,7 @@ export class TNSPlayer extends Observable {
                     const errorRef = new interop.Reference<NSError>();
                     this._player = AVAudioPlayer.alloc().initWithDataError(data, errorRef);
                     if (errorRef && errorRef.value) {
-                        throw interop.NSErrorWrapper(errorRef.value);
+                        reject(errorRef.value);
                     } else if (this._player) {
                         this.handleStartPlayer(options);
 
