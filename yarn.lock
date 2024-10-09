@@ -1695,13 +1695,13 @@ __metadata:
 
 "@nativescript-community/template-snippet@file:demo-snippets::locator=root-workspace-0b6124%40workspace%3A.":
   version: 0.0.1
-  resolution: "@nativescript-community/template-snippet@file:demo-snippets#demo-snippets::hash=9a835c&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@nativescript-community/template-snippet@file:demo-snippets#demo-snippets::hash=4fef10&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@nativescript-community/audio": "npm:*"
     "@nativescript-community/perms": "npm:^2.2.25"
     vue-class-component: "npm:7.2.6"
     vue-property-decorator: "npm:~9.1.2"
-  checksum: 181c531ebeb08743e026b4d6e193f33d6abce0b3549a4e88575a60b6b4d34eced493632b4d376814f9274cfc9fdb3150c4aab5af847216b344c48a072784383d
+  checksum: d4dc3abda1cb1b68ee4cc2d366c20b77b282fa0c1658ed3fd7db29f08f31bb7e1d738c6ae0d026b6e91cf206cbe7eaf1f3948ab70a8f3768e6d4a0fbcdfb860f
   languageName: node
   linkType: hard
 
@@ -14118,11 +14118,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>":
   version: 5.3.3
-  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
+  resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=29ae49"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c93786fcc9a70718ba1e3819bab56064ead5817004d1b8186f8ca66165f3a2d0100fee91fa64c840dcd45f994ca5d615d8e1f566d39a7470fc1e014dbb4cf15d
+  checksum: 57bf073a0b88f9bf76e5a24be3df864a8f9d0e70f8316969f4992ae26e30cb8d078708922da2ade1f2c8d1faee13b28bcb69876ebb1e37910e31c54aa9126aa2
   languageName: node
   linkType: hard
 
@@ -14138,7 +14138,7 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A~5.4.5#optional!builtin<compat/typescript>":
   version: 5.4.5
-  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=e012d7"
+  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=29ae49"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
