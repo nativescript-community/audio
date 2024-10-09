@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 6.5.0 (2024-10-09)
+
+### Features
+
+* **android:** support for wav recording ([fdbf720](https://github.com/nativescript-community/audio/commit/fdbf72075fe82f9705ace173042cc656eb097308))
+* **ios:** sessionMode, sessionCategory and sessionRouteSharingPolicy for iOS ([f952093](https://github.com/nativescript-community/audio/commit/f9520934be29667941adb23a908e3b8c5576899c))
+* rewrote android wav handling to support float encoding (AudioFormat.ENCODING_PCM_FLOAT) ([a9dd86a](https://github.com/nativescript-community/audio/commit/a9dd86a0fa9e8cf87a04dfcf47eea60c0e54a07e))
+
+### Bug Fixes
+
+* android native api-usage ([cd84c7f](https://github.com/nativescript-community/audio/commit/cd84c7f4d6b2f1d72de730b712611c50b293d311))
+* **android:** allow to use custom dataSource ([49cd869](https://github.com/nativescript-community/audio/commit/49cd8697d8771decb6167c4b676a7d8dcc776e11))
+* **android:** improved native-api-usage ([178f811](https://github.com/nativescript-community/audio/commit/178f81122895e2c26fa1b12fd2d73c03970816e5))
+* **android:** native api usage fix ([733080c](https://github.com/nativescript-community/audio/commit/733080cc333cad5fdae909a35b965f215ce9a879))
+* **android:** native api usage fix ([f2e4b0d](https://github.com/nativescript-community/audio/commit/f2e4b0deec63f3623125c44be7d3b64826c2acd1))
+* **android:** native-api-usage fix ([68f4e4b](https://github.com/nativescript-community/audio/commit/68f4e4bb44698c3d5fa674eaef6c6be1deb05d2a))
+
 ## [6.4.7](https://github.com/nativescript-community/audio/compare/v6.4.6...v6.4.7) (2024-09-29)
 
 **Note:** Version bump only for package @nativescript-community/audio
