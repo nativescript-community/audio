@@ -219,7 +219,11 @@ export class TNSPlayer extends Observable {
                 player.reset();
                 if (options.audioFile) {
                     const audioPath = resolveAudioFilePath(options.audioFile);
-                    player.setDataSource(audioPath);
+                    if (audioPath.startsWith('content://')) {
+                        player.setDataSource(Utils.android.getApplicationContext(), android.net.Uri.parse(audioPath));
+                    } else {
+                        player.setDataSource(audioPath);
+                    }
 
                     // check if local file or remote - local then `prepare` is okay https://developer.android.com/reference/android/media/MediaPlayer.html#prepare()
                     if (Utils.isFileOrResourcePath(audioPath)) {
@@ -249,6 +253,9 @@ export class TNSPlayer extends Observable {
                     new android.media.MediaPlayer.OnPreparedListener({
                         onPrepared: (mp) => {
                             try {
+                                if (options.seek) {
+                                    this.seekTo(options.seek);
+                                }
                                 if (options.autoPlay) {
                                     this.play();
                                 }
@@ -344,8 +351,7 @@ export class TNSPlayer extends Observable {
 
     public async seekTo(time: number) {
         if (this._player) {
-            time = time * 1000;
-            this._player.seekTo(time);
+            this._player.seekTo(time * 1000);
             this.notify({ eventName: AudioPlayerEvents.seek });
         }
     }

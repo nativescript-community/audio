@@ -123,6 +123,9 @@ export class TNSPlayer extends Observable {
             this._player.numberOfLoops = -1;
         }
 
+        if (options.seek) {
+            this.seekTo(options.seek);
+        }
         if (options.autoPlay !== false) {
             this._player.play();
         }

@@ -46,6 +46,10 @@ export interface AudioPlayerOptions {
      * Should mix audio.
      */
     audioMixing?: boolean;
+    /**
+     * start at a specific position
+     */
+    seek?: number;
 
     /**
      * iOS: The category for playing recorded music or other sounds that are central to the successful use of your app.
@@ -74,6 +78,7 @@ export interface AudioPlayerOptions {
      * Android: custom player datasource.
      */
     dataSource?: android.media.MediaDataSource;
+
 }
 
 export interface AudioRecorderAndroidOptions {
