@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.8](https://github.com/nativescript-community/audio/compare/v6.4.7...v6.4.8) (2024-10-14)
+
+### Features
+
+* seek option for playFromFile to start at a specific position ([f6f2753](https://github.com/nativescript-community/audio/commit/f6f2753e782e9464c051b8380df65cabff96b762))
+
 ## [6.4.7](https://github.com/nativescript-community/audio/compare/v6.4.6...v6.4.7) (2024-09-29)
 
 ### Bug Fixes
