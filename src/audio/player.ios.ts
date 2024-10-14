@@ -64,14 +64,14 @@ export class TNSPlayer extends Observable {
 
     public get duration() {
         if (this._player) {
-            return this._player.duration;
+            return Math.round(this._player.duration * 1000);
         } else {
             return 0;
         }
     }
 
     get currentTime(): number {
-        return this._player ? this._player.currentTime : 0;
+        return this._player ? Math.round(this._player.currentTime * 1000) : 0;
     }
 
     public setAudioFocusManager(manager: any) {}
@@ -89,22 +89,22 @@ export class TNSPlayer extends Observable {
 
         const audioSession = AVAudioSession.sharedInstance();
         audioSession.setCategoryModeRouteSharingPolicyOptionsError(
-            options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryAmbient,
-            options.sessionMode !== undefined ? options.sessionMode : AVAudioSessionModeDefault,
-            options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
-            options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+            options.sessionCategory ?? AVAudioSessionCategoryAmbient,
+            options.sessionMode ?? AVAudioSessionModeDefault,
+            options.sessionRouteSharingPolicy ?? AVAudioSessionRouteSharingPolicy.Default,
+            options.audioMixing ?? 0,
             //@ts-ignore
             null
         );
         const output = audioSession.currentRoute.outputs.lastObject.portType;
-        if (output.match(/Receiver/)) {
-            try {
-                audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
-                audioSession.overrideOutputAudioPortError(AVAudioSessionPortOverride.Speaker);
-                audioSession.setActiveError(true);
-            } catch (err) {
-                console.error('setting audioSession catergory failed', err);
+        try {
+            // audioSession.setCategoryError(options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryAmbient);
+            if (output.match(/Receiver/)) {
+                audioSession.overrideOutputAudioPortError(1936747378 /* AVAudioSessionPortOverride.Speaker */);
             }
+            audioSession.setActiveError(options.active ?? true);
+        } catch (err) {
+            console.error('setting audioSession catergory failed', err);
         }
     }
     private handleStartPlayer(options: AudioPlayerOptions) {
@@ -195,9 +195,7 @@ export class TNSPlayer extends Observable {
 
                 this._task.resume();
             } catch (ex) {
-                if (this.errorCallback) {
-                    this.errorCallback({ ex });
-                }
+                this.errorCallback?.({ ex });
                 reject(ex);
             }
         });
@@ -209,9 +207,7 @@ export class TNSPlayer extends Observable {
                 this._player.pause();
             }
         } catch (ex) {
-            if (this.errorCallback) {
-                this.errorCallback({ ex });
-            }
+            this.errorCallback?.({ ex });
             throw ex;
         }
     }
@@ -220,11 +216,10 @@ export class TNSPlayer extends Observable {
         try {
             if (this._player && this._player.playing) {
                 this._player.stop();
+                this.errorCallback?.({});
             }
         } catch (ex) {
-            if (this.errorCallback) {
-                this.errorCallback({ ex });
-            }
+            this.errorCallback?.({ ex });
             throw ex;
         }
     }
@@ -236,9 +231,7 @@ export class TNSPlayer extends Observable {
             }
             return true;
         } catch (ex) {
-            if (this.errorCallback) {
-                this.errorCallback({ ex });
-            }
+            this.errorCallback?.({ ex });
             throw ex;
         }
     }
@@ -263,9 +256,7 @@ export class TNSPlayer extends Observable {
                 }
                 resolve(true);
             } catch (ex) {
-                if (this.errorCallback) {
-                    this.errorCallback({ ex });
-                }
+                this.errorCallback?.({ ex });
                 throw ex;
             }
         });
@@ -293,12 +284,10 @@ export class TNSPlayer extends Observable {
 
     public async getAudioTrackDuration() {
         try {
-            const duration = this._player ? this._player.duration : 0;
+            const duration = this._player ? Math.round(this._player.duration * 1000) : 0;
             return duration;
         } catch (ex) {
-            if (this.errorCallback) {
-                this.errorCallback({ ex });
-            }
+            this.errorCallback?.({ ex });
             throw ex;
         }
     }

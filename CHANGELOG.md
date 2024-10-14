@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.7](https://github.com/nativescript-community/audio/compare/v6.4.6...v6.4.7) (2024-09-29)
+
+### Bug Fixes
+
+* **ios:** more options for player ([b8e254e](https://github.com/nativescript-community/audio/commit/b8e254e72665ca9ce213d93682e704eac66340ab))
+
+## [6.4.6](https://github.com/nativescript-community/audio/compare/v6.4.5...v6.4.6) (2024-09-26)
+
+### Bug Fixes
+
+* **ios:** duration is now in ms like android ([b1dbe05](https://github.com/nativescript-community/audio/commit/b1dbe058c63780bb27e23ff89fae408530cec0ca))
+
 ## [6.4.5](https://github.com/nativescript-community/audio/compare/v6.4.4...v6.4.5) (2024-09-18)
 
 ### Bug Fixes
