@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.10](https://github.com/nativescript-community/audio/compare/v6.4.9...v6.4.10) (2024-10-23)
+
+### Bug Fixes
+
+* **ios:** remove interop.NSErrorWrapper ([08c88c9](https://github.com/nativescript-community/audio/commit/08c88c9f67b2fd801b6afc54fe86772e18ec40ce))
+
 ## [6.4.9](https://github.com/nativescript-community/audio/compare/v6.4.8...v6.4.9) (2024-10-23)
 
 ### Bug Fixes
