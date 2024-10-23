@@ -1,5 +1,6 @@
 import { Observable, Utils, knownFolders, path as nsFilePath } from '@nativescript/core';
 import { AudioPlayerOptions } from '.';
+import { wrapNativeException } from './utils.ios';
 
 declare let AVAudioPlayer;
 
@@ -144,7 +145,7 @@ export class TNSPlayer extends Observable {
                 const errorRef = new interop.Reference<NSError>();
                 this._player = AVAudioPlayer.alloc().initWithContentsOfURLError(NSURL.fileURLWithPath(fileName), errorRef);
                 if (errorRef && errorRef.value) {
-                    throw new interop.NSErrorWrapper(errorRef.value);
+                    throw wrapNativeException(errorRef.value);
                 } else if (this._player) {
                     this.handleStartPlayer(options);
 
@@ -183,7 +184,7 @@ export class TNSPlayer extends Observable {
                     const errorRef = new interop.Reference<NSError>();
                     this._player = AVAudioPlayer.alloc().initWithDataError(data, errorRef);
                     if (errorRef && errorRef.value) {
-                        throw new interop.NSErrorWrapper(errorRef.value);
+                        throw wrapNativeException(errorRef.value);
                     } else if (this._player) {
                         this.handleStartPlayer(options);
 

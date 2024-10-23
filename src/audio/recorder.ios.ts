@@ -1,5 +1,6 @@
 import { Observable } from '@nativescript/core';
 import { AudioRecorderOptions } from '.';
+import { wrapNativeException } from './utils.ios';
 
 @NativeClass()
 class TNSRecorderDelegate extends NSObject implements AVAudioRecorderDelegate {
@@ -84,7 +85,7 @@ export class TNSRecorder extends Observable {
                 );
                 //@ts-ignore
                 if (errorRef && errorRef.value) {
-                    throw new interop.NSErrorWrapper(errorRef.value);
+                    throw wrapNativeException(errorRef.value);
                 }
 
                 this._recordingSession.setActiveError(true);
@@ -131,7 +132,7 @@ export class TNSRecorder extends Observable {
                             this._recorder = AVAudioRecorder.alloc().initWithURLSettingsError(url, recordSetting, errorRef);
                         }
                         if (errorRef && errorRef.value) {
-                            throw new interop.NSErrorWrapper(errorRef.value);
+                            throw wrapNativeException(errorRef.value);
                         } else {
                             if (!this._recorder.delegate) {
                                 this._recorder.delegate = TNSRecorderDelegate.initWithOwner(this);
