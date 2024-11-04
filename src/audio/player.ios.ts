@@ -145,7 +145,7 @@ export class TNSPlayer extends Observable {
                 const errorRef = new interop.Reference<NSError>();
                 this._player = AVAudioPlayer.alloc().initWithContentsOfURLError(NSURL.fileURLWithPath(fileName), errorRef);
                 if (errorRef && errorRef.value) {
-                    throw wrapNativeException(errorRef.value);
+                    reject(wrapNativeException(errorRef.value));
                 } else if (this._player) {
                     this.handleStartPlayer(options);
 
@@ -184,7 +184,7 @@ export class TNSPlayer extends Observable {
                     const errorRef = new interop.Reference<NSError>();
                     this._player = AVAudioPlayer.alloc().initWithDataError(data, errorRef);
                     if (errorRef && errorRef.value) {
-                        throw wrapNativeException(errorRef.value);
+                        reject(wrapNativeException(errorRef.value));
                     } else if (this._player) {
                         this.handleStartPlayer(options);
 
@@ -272,9 +272,7 @@ export class TNSPlayer extends Observable {
             audioSession.setActiveError(false);
             this._reset();
         } catch (ex) {
-            if (this.errorCallback) {
-                this.errorCallback({ ex });
-            }
+            this.errorCallback?.({ ex });
             throw ex;
         }
     }
