@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.11](https://github.com/nativescript-community/audio/compare/v6.4.10...v6.4.11) (2024-11-04)
+
+**Note:** Version bump only for package @nativescript-community/audio
+
 ## [6.4.10](https://github.com/nativescript-community/audio/compare/v6.4.9...v6.4.10) (2024-10-23)
 
 **Note:** Version bump only for package @nativescript-community/audio

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.11](https://github.com/nativescript-community/audio/compare/v6.4.10...v6.4.11) (2024-11-04)
+
+### Bug Fixes
+
+* **ios:** fixed crash with audio player ([158da87](https://github.com/nativescript-community/audio/commit/158da87ab4b4784c7a6731ce8e4db3f0a8685dea))
+
 ## [6.4.10](https://github.com/nativescript-community/audio/compare/v6.4.9...v6.4.10) (2024-10-23)
 
 ### Bug Fixes
