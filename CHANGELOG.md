@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.12](https://github.com/nativescript-community/audio/compare/v6.4.11...v6.4.12) (2025-02-23)
+
+### Features
+
+* **ios:** new `sessionCategoryOptions` option ([c6db225](https://github.com/nativescript-community/audio/commit/c6db225e7b1bc7ccca66688bf0a780e702f12edf))
+
 ## [6.4.11](https://github.com/nativescript-community/audio/compare/v6.4.10...v6.4.11) (2024-11-04)
 
 ### Bug Fixes
