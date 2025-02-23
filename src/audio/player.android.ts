@@ -30,6 +30,7 @@ export class AudioFocusManager extends Observable {
     private _mAudioFocusGranted: boolean = false;
     private _durationHint: AudioFocusDurationHint;
     private _audioPlayerSet = new Set<TNSPlayer>();
+    private _mOnAudioFocusChangeListener: android.media.AudioManager.OnAudioFocusChangeListener;
 
     constructor(options?: AudioFocusManagerOptions) {
         super();
@@ -41,22 +42,22 @@ export class AudioFocusManager extends Observable {
         // Request audio focus for play back
 
         const playbackAttributes = new android.media.AudioAttributes.Builder().setUsage(options.usage).setContentType(options.contentType).build();
+        const that = new WeakRef(this);
+        this._mOnAudioFocusChangeListener = new android.media.AudioManager.OnAudioFocusChangeListener({
+            onAudioFocusChange: (focusChange: number) => {
+                that?.get()?.notify({
+                    eventName: 'audioFocusChange',
+                    object: this,
+                    focusChange
+                });
+            }
+        });
         this._audioFocusRequest = new android.media.AudioFocusRequest.Builder(options.durationHint)
             .setAudioAttributes(playbackAttributes)
             .setAcceptsDelayedFocusGain(true)
             .setOnAudioFocusChangeListener(this._mOnAudioFocusChangeListener)
             .build();
     }
-
-    private _mOnAudioFocusChangeListener = new android.media.AudioManager.OnAudioFocusChangeListener({
-        onAudioFocusChange: (focusChange: number) => {
-            this.notify({
-                eventName: 'audioFocusChange',
-                object: this,
-                focusChange
-            });
-        }
-    });
 
     private needsFocus(): boolean {
         return this._audioPlayerSet.size > 0;
