@@ -58,6 +58,12 @@ export interface AudioPlayerOptions {
     sessionCategory?: string;
 
     /**
+     * iOS: The set of options associated with the current audio session category.
+     *  https://developer.apple.com/documentation/avfaudio/avaudiosession/categoryoptions-swift.property?language=objc
+     */
+    sessionCategoryOptions?: number;
+
+    /**
      * iOS: Audio session mode identifiers.
      * https://developer.apple.com/documentation/avfaudio/avaudiosessionmode
      */

@@ -93,7 +93,7 @@ export class TNSPlayer extends Observable {
             options.sessionCategory ?? AVAudioSessionCategoryAmbient,
             options.sessionMode ?? AVAudioSessionModeDefault,
             options.sessionRouteSharingPolicy ?? AVAudioSessionRouteSharingPolicy.Default,
-            options.audioMixing ?? 0,
+            options.sessionCategoryOptions ?? (options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : 0),
             //@ts-ignore
             null
         );
