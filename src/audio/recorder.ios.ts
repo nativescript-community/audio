@@ -79,7 +79,8 @@ export class TNSRecorder extends Observable {
                     options.sessionCategory !== undefined ? options.sessionCategory : AVAudioSessionCategoryRecord,
                     options.sessionMode !== undefined ? options.sessionMode : AVAudioSessionModeDefault,
                     options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
-                    options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers,
+                    options.sessionCategoryOptions ?? (options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers),
+
                     //@ts-ignore
                     errorRef
                 );

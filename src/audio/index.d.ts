@@ -156,6 +156,12 @@ export interface AudioRecorderOptions {
     sessionRouteSharingPolicy?: AVAudioSessionRouteSharingPolicy;
 
     /**
+     * iOS: The set of options associated with the current audio session category.
+     *  https://developer.apple.com/documentation/avfaudio/avaudiosession/categoryoptions-swift.property?language=objc
+     */
+    sessionCategoryOptions?: number;
+
+    /**
      * Callback to execute when playback has an error.
      * @returns {Object} An object containing the native values for the error callback.
      */
