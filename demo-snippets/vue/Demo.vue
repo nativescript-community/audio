@@ -6,20 +6,6 @@
         </ActionBar>
 
         <TabView tabsBackgroundColor="#3F51B5" selectedColor="#FF4081">
-            <TabViewItem title="Recorder">
-                <ScrollView>
-                    <StackLayout class="p-10" width="100%">
-                        <ActivityIndicator color="#3489db" :busy="isRecording" />
-                        <button row="0" col="0" class="btn btn-primary" text="Start Recording" @tap="startRecord" />
-                        <Label ::text=" 'Meter Value: ' + audioMeter " textWrap="true" />
-                        <button class="btn btn-primary" text="Stop Recording" @tap="stopRecord" />
-                        <button class="btn btn-outline text-info" text="Get File" @tap="getFile" />
-                        <label :text="recordedAudioFile" class="gray" textWrap="true" />
-                        <button class="btn btn-primary" text="Play Recorded" @tap="playRecordedFile" />
-                        <button class="btn btn-primary" text="Stop Playback" @tap="pauseAudio" />
-                    </StackLayout>
-                </ScrollView>
-            </TabViewItem>
             <TabViewItem title="Player">
                 <ScrollView>
                     <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto" columns="*, *, *" class="p-10">
@@ -39,12 +25,26 @@
                         <Label row="9" col="0" :text="'Duration: ' + audioTrackDuration" textWrap="true" />
                         <Label row="9" col="2" :text="'Remaining: ' + remainingDuration" textWrap="true" />
                         <Label row="10" col="0" text="Volume Slider: " textWrap="true" class="m-t-20" />
-                        <Slider row="10" col="1" colSpan="2" id="volumeSlider" minValue="0" maxValue="100" value="100" class="m-t-20" />
+                        <Slider id="volumeSlider" row="10" col="1" colSpan="2" minValue="0" maxValue="100" value="100" class="m-t-20" />
                         <Label :text="'Current Volume for Player ' + currentVolume" textWrap="true" />
                         <Button row="11" col="0" text="Mute" class="btn btn-primary" @tap="muteTap" />
                         <Button row="11" col="1" text="Unmute" class="btn btn-primary" @tap="unmuteTap" />
                         <Button row="12" col="0" colSpan="2" text="Go to 8 Seconds" class="btn btn-primary" @tap="skipTo8" />
                     </GridLayout>
+                </ScrollView>
+            </TabViewItem>
+            <TabViewItem title="Recorder">
+                <ScrollView>
+                    <StackLayout class="p-10" width="100%">
+                        <ActivityIndicator color="#3489db" :busy="isRecording" />
+                        <button row="0" col="0" class="btn btn-primary" text="Start Recording" @tap="startRecord" />
+                        <Label ::text=" 'Meter Value: ' + audioMeter " textWrap="true" />
+                        <button class="btn btn-primary" text="Stop Recording" @tap="stopRecord" />
+                        <button class="btn btn-outline text-info" text="Get File" @tap="getFile" />
+                        <label :text="recordedAudioFile" class="gray" textWrap="true" />
+                        <button class="btn btn-primary" text="Play Recorded" @tap="playRecordedFile" />
+                        <button class="btn btn-primary" text="Stop Playback" @tap="pauseAudio" />
+                    </StackLayout>
                 </ScrollView>
             </TabViewItem>
         </TabView>
@@ -108,10 +108,10 @@ export default class Demo extends Vue {
             });
         }
 
-        request({
-            microphone:{},
-            storage:{}
-        }).then(r=>console.log(r))
+        // request({
+        //     microphone: {},
+        //     storage: {}
+        // }).then((r) => console.log(r));
     }
     get message() {
         return 'Audio {N}-Vue app';
@@ -143,10 +143,11 @@ export default class Demo extends Vue {
 
                 format: androidFormat,
                 sampleRate: 48000,
-                android: __ANDROID__ ? {
-                    encoder: androidEncoder
-                } :  undefined,
-
+                android: __ANDROID__
+                    ? {
+                          encoder: androidEncoder
+                      }
+                    : undefined,
 
                 metering: true,
 
@@ -212,38 +213,40 @@ export default class Demo extends Vue {
     }
 
     async playRecordedFile(args) {
-        const audioFolder = knownFolders.currentApp().getFolder('audio');
-        const recordedFile = audioFolder.getFile(`recording.${this.platformExtension()}`);
-        console.log('RECORDED FILE : ' + JSON.stringify(recordedFile));
-        const playerOptions: AudioPlayerOptions = {
-            audioFile: `~/audio/recording.${this.platformExtension()}`,
-            loop: false,
-            completeCallback: async () => {
-                alert('Audio file complete.');
-                this.isPlaying = false;
-                if (!playerOptions.loop) {
-                    await this._player.dispose();
-                    console.log('player disposed');
+        try {
+            const audioFolder = knownFolders.currentApp().getFolder('audio');
+            const recordedFile = audioFolder.getFile(`recording.${this.platformExtension()}`);
+            console.log('RECORDED FILE : ' + JSON.stringify(recordedFile));
+            const playerOptions: AudioPlayerOptions = {
+                audioFile: `~/audio/recording.${this.platformExtension()}`,
+                loop: false,
+                completeCallback: async () => {
+                    alert('Audio file complete.');
+                    this.isPlaying = false;
+                    if (!playerOptions.loop) {
+                        await this._player.dispose();
+                        console.log('player disposed');
+                    }
+                },
+
+                errorCallback: (errorObject) => {
+                    console.log(JSON.stringify(errorObject));
+                    this.isPlaying = false;
+                },
+
+                infoCallback: (infoObject) => {
+                    console.log(JSON.stringify(infoObject));
+                    Dialogs.alert('Info callback');
                 }
-            },
+            };
 
-            errorCallback: (errorObject) => {
-                console.log(JSON.stringify(errorObject));
-                this.isPlaying = false;
-            },
+            await this._player.playFromFile(playerOptions);
 
-            infoCallback: (infoObject) => {
-                console.log(JSON.stringify(infoObject));
-                Dialogs.alert('Info callback');
-            }
-        };
-
-        await this._player.playFromFile(playerOptions).catch((err) => {
-            console.log('error playFromFile');
+            this.isPlaying = true;
+        } catch (error) {
+            console.log('error playFromFile', error);
             this.isPlaying = false;
-        });
-
-        this.isPlaying = true;
+        }
     }
 
     /***** AUDIO PLAYER *****/
@@ -272,21 +275,18 @@ export default class Demo extends Vue {
             this.isPlaying = true;
 
             if (fileType === 'localFile') {
-                await this._player.playFromFile(playerOptions).catch(() => {
-                    this.isPlaying = false;
-                });
+                await this._player.playFromFile(playerOptions);
                 this.isPlaying = true;
                 this.audioTrackDuration = await this._player.getAudioTrackDuration();
                 // start audio duration tracking
                 this._startDurationTracking(this.audioTrackDuration);
                 this._startVolumeTracking();
             } else if (fileType === 'remoteFile') {
-                await this._player.playFromUrl(playerOptions).catch(() => {
-                    this.isPlaying = false;
-                });
+                await this._player.playFromUrl(playerOptions);
                 this.isPlaying = true;
             }
         } catch (ex) {
+            this.isPlaying = false;
             console.log(ex);
         }
     }
@@ -310,7 +310,7 @@ export default class Demo extends Vue {
      * PLAY LOCAL AUDIO FILE from app folder
      */
     playLocalFile(args) {
-        const filepath = '~/audio/angel.mp3';
+        const filepath = '~/assets/audio/angel.mp3';
         this.playAudio(filepath, 'localFile');
     }
 
@@ -329,6 +329,12 @@ export default class Demo extends Vue {
 
     async stopPlaying(args) {
         await this._player.dispose();
+        if (this.durationTrackingId) {
+            clearInterval(this.durationTrackingId);
+        }
+        if (this.volumeTrackingId) {
+            clearInterval(this.volumeTrackingId);
+        }
         Dialogs.alert('Media Player Disposed.');
     }
 
@@ -346,7 +352,7 @@ export default class Demo extends Vue {
     }
 
     unmuteTap() {
-        this._player.volume = 0.2;
+        this._player.volume = this.currentVolume;
     }
 
     skipTo8() {
@@ -369,19 +375,25 @@ export default class Demo extends Vue {
         // 'mp3'
         return `${Application.android ? 'm4a' : 'caf'}`;
     }
-
+    durationTrackingId;
     async _startDurationTracking(duration) {
         if (this._player && this._player.isAudioPlaying()) {
-            const timerId = Utils.setInterval(() => {
+            if (this.durationTrackingId) {
+                clearInterval(this.durationTrackingId);
+            }
+            this.durationTrackingId = Utils.setInterval(() => {
                 this.remainingDuration = duration - this._player.currentTime;
-                // console.log(`this.remainingDuration = ${this.remainingDuration}`);
+                console.log(`this.remainingDuration = ${this.remainingDuration}`);
             }, 1000);
         }
     }
-
+    volumeTrackingId;
     _startVolumeTracking() {
         if (this._player) {
-            const timerId = Utils.setInterval(() => {
+            if (this.volumeTrackingId) {
+                clearInterval(this.volumeTrackingId);
+            }
+            this.volumeTrackingId = setInterval(() => {
                 console.log('volume tracking', this._player.volume);
                 this.currentVolume = this._player.volume;
             }, 2000);
