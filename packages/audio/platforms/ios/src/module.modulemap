@@ -1,0 +1,5 @@
+module CartoAdditions {
+  umbrella header "Audio.h"
+  export *
+  module * { export * }
+}

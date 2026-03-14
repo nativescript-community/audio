@@ -1,4 +1,4 @@
-import { check, request } from '@nativescript-community/perms';
+import { check, isPermResultAuthorized, request } from '@nativescript-community/perms';
 import { Application, Utils } from '@nativescript/core';
 import { ANDROID_ENCODER_PCM, AudioRecorderAndroidOptions, AudioRecorderOptions } from '.';
 
@@ -23,9 +23,8 @@ export class TNSRecorder {
         return request('microphone');
     }
 
-    public hasRecordPermission() {
-        const permission = check('microphone');
-        return permission[0] === 'authorized';
+    public async hasRecordPermission() {
+        return isPermResultAuthorized(await check('microphone'));
     }
 
     public async start(options: AudioRecorderOptions) {
@@ -38,8 +37,7 @@ export class TNSRecorder {
             this._recorder.reset();
         } else {
             if (androidOptions.wavAudioFormat !== undefined) {
-                //@ts-ignore
-                this._wavrecorder = new com.kailashdabhi.omrecorder.OmRecorder.wav(
+                this._wavrecorder = com.kailashdabhi.omrecorder.OmRecorder.wav(
                     new com.kailashdabhi.omrecorder.PullTransport.Default(
                         new com.kailashdabhi.omrecorder.PullableSource.Default(
                             new com.kailashdabhi.omrecorder.AudioRecordConfig.Default(

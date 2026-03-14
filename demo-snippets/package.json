@@ -10,7 +10,7 @@
     },
     "dependencies": {
         "@nativescript-community/audio": "*",
-        "@nativescript-community/perms": "^2.2.25",
+        "@nativescript-community/perms": "^3.0.4",
         "vue-class-component": "7.2.6",
         "vue-property-decorator": "~9.1.2"
     }

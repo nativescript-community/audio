@@ -81,10 +81,9 @@ export class TNSRecorder extends Observable {
                     options.sessionRouteSharingPolicy !== undefined ? options.sessionRouteSharingPolicy : AVAudioSessionRouteSharingPolicy.Default,
                     options.sessionCategoryOptions ?? (options.audioMixing ? AVAudioSessionCategoryOptions.MixWithOthers : AVAudioSessionCategoryOptions.DuckOthers),
 
-                    //@ts-ignore
+                    //@ts-expect-error missing errorRef arg
                     errorRef
                 );
-                //@ts-ignore
                 if (errorRef && errorRef.value) {
                     return reject(wrapNativeException(errorRef.value));
                 }
@@ -129,7 +128,7 @@ export class TNSRecorder extends Observable {
                         const url = NSURL.fileURLWithPath(options.filename);
 
                         if (!this._recorder) {
-                            //@ts-ignore
+                            //@ts-expect-error missing errorRef arg
                             this._recorder = AVAudioRecorder.alloc().initWithURLSettingsError(url, recordSetting, errorRef);
                         }
                         if (errorRef && errorRef.value) {
