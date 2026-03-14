@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.14](https://github.com/nativescript-community/audio/compare/v6.4.13...v6.4.14) (2026-03-14)
+
+### Bug Fixes
+
+* **audio:** ios now uses SFBAudioEngine. Allows more file format like vorbis ([6ea81cc](https://github.com/nativescript-community/audio/commit/6ea81cc3fab40540bfb4220fed53b8628c3ee4d9))
+
 ## [6.4.13](https://github.com/nativescript-community/audio/compare/v6.4.12...v6.4.13) (2025-02-23)
 
 ### Bug Fixes
