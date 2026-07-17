@@ -203,7 +203,7 @@ export class TNSPlayer extends Observable {
                         if (this.errorCallback) {
                             this.errorCallback({ error });
                         }
-                        reject(error);
+                        return reject(error);
                     }
                     const errorRef = new interop.Reference<NSError>();
                     const inputSource = SFBInputSource.inputSourceWithData(data);
